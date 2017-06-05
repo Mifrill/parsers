@@ -1,0 +1,5 @@
+#!/bin/sh
+
+rm -rf tmp/*
+
+bundle exec rspec
