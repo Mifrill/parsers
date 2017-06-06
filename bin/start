@@ -2,4 +2,4 @@
 
 rm -rf tmp/*
 
-bundle exec rspec
+ruby app/launch.rb
