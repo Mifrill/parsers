@@ -1,8 +1,9 @@
 require('spec_helper')
 
-describe MyModel do
+describe DNSParser::Parser do
   it 'should be true' do
-    expect(MyModel.new.the_truth).to be true
+    visit '/'
+    expect(page).to have_content('DNS')
   end
 end
 
