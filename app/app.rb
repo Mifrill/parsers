@@ -5,6 +5,7 @@ module DNSParser
     include Capybara::DSL
 
     def get_config
+      Capybara.app_host = 'http://www.dns-shop.ru/'
       page.driver.browser.manage.window.resize_to(1280, 1024)
     end
 
@@ -24,8 +25,10 @@ module DNSParser
       puts city
     end
 
-    def get_screenshot
-      page.save_screenshot('screen.png', full: true)
+    def get_screenshot(city)
+      time = Time.now.strftime("%d.%m.%Y %H:%M")
+      screenshot_path = city + '_screen_' + time + '.png'
+      page.save_screenshot(screenshot_path, full: true)
     end
 
     def start_parser
@@ -65,7 +68,7 @@ module DNSParser
             find("ul[class='cities']").find("li a[rel='#{city}']").click
 
             puts get_price
-            get_screenshot
+            get_screenshot(city)
 
             find("a[class='city-select w-choose-city-widget']").click
           end
