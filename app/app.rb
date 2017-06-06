@@ -6,8 +6,10 @@ module DNSParser
     def get_report
       page.driver.browser.manage.window.resize_to(1280, 1024)
 
+      @site = "5\" Смартфон Huawei Honor 5A 16 ГБ золотистый"
+
       def get_price
-        find("input[class='form-control ui-autocomplete-input'").set("5\" Смартфон Huawei Honor 5A 16 ГБ золотистый").native.send_keys(:enter)
+        find("input[class='form-control ui-autocomplete-input'").set(@site).native.send_keys(:enter)
         price = find(".price_g span:first-child").text
         puts price
       end
@@ -38,7 +40,14 @@ module DNSParser
           end
 
           @city_of_regions_of_federal_regions.each do |city|
+
+            #TODO record JSON file report
+            puts find("ul[class='regions-groups']").find("li a[data-group-id='#{federal_region}']").text
+            puts find("ul[class='regions']").find("li a[data-region-id='#{region}']").text
+            puts city
+
             find("ul[class='cities']").find("li a[rel='#{city}']").click
+
             get_price
             find("a[class='city-select w-choose-city-widget']").click
           end
