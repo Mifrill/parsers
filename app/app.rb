@@ -3,16 +3,16 @@ require_relative '../settings/capybara'
 module DNSParser
   class Parser
     include Capybara::DSL
+
+    def get_price
+      find("input[class='form-control ui-autocomplete-input'").set(@site).native.send_keys(:enter)
+      find(".price_g span:first-child").text
+    end
+
     def get_report
       page.driver.browser.manage.window.resize_to(1280, 1024)
 
       @site = "5\" Смартфон Huawei Honor 5A 16 ГБ золотистый"
-
-      def get_price
-        find("input[class='form-control ui-autocomplete-input'").set(@site).native.send_keys(:enter)
-        price = find(".price_g span:first-child").text
-        puts price
-      end
 
       visit('/')
 
@@ -48,7 +48,8 @@ module DNSParser
 
             find("ul[class='cities']").find("li a[rel='#{city}']").click
 
-            get_price
+            puts get_price
+
             find("a[class='city-select w-choose-city-widget']").click
           end
         end
