@@ -21,8 +21,6 @@ module DNSParser
       find("ul[class='regions-groups']").all('li').drop(1).each do |region_group|
         @federal_regions << region_group.find('a')['data-group-id']
       end
-      #puts @federal_regions
-      #puts @federal_regions[0]
 
       @federal_regions.each do |federal_region|
         find("ul[class='regions-groups']").find("li a[data-group-id='#{federal_region}']").click
@@ -32,11 +30,9 @@ module DNSParser
           @regions_of_federal_regions << region.find('a')['data-region-id']
           sleep(0.5)
         end
-        #puts @regions_of_federal_regions
 
         @regions_of_federal_regions.each do |region|
           find("ul[class='regions']").find("li a[data-region-id='#{region}']").click
-          #puts @city_of_regions_of_federal_regions
 
           @city_of_regions_of_federal_regions = []
           find("ul[class='cities']").all('li').drop(1).each do |city|
@@ -48,7 +44,6 @@ module DNSParser
             sleep(0.5)
             find("ul[class='cities']").find("li a[rel='#{city}']").click
             sleep(0.5)
-            #expect(page).to have_content(city.capitalize)
             get_price
             sleep(0.5)
             find("a[class='city-select w-choose-city-widget']").click

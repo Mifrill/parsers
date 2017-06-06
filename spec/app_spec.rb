@@ -5,17 +5,18 @@ describe DNSParser::Parser do
     visit '/'
     expect(page).to have_content('DNS')
   end
-end
 
-describe 'some stuff which requires js', js: true do
+  describe 'some stuff which requires js', js: true do
+    before(:all) do
+      page.driver.browser.manage.window.resize_to(1280, 1024)
+    end
 
-  before(:all) do
-  end
+    it 'will use the default js driver' do
+      visit '/'
+      expect(page).to have_content('DNS')
+    end
 
-  it 'will use the default js driver' do
-
-  end
-
-  after(:all) do
+    after(:all) do
+    end
   end
 end
