@@ -16,6 +16,7 @@ Capybara::Screenshot.register_driver(:chrome) do |driver, path|
   driver.browser.save_screenshot(path)
 end
 
+Capybara.default_wait_time = 5
 Capybara.default_driver = :chrome
 Capybara.javascript_driver = :chrome
 Capybara.app_host = 'http://www.dns-shop.ru/'
