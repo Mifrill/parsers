@@ -13,5 +13,5 @@ Capybara::Screenshot.register_driver(:chrome) do |driver, path|
   driver.browser.save_screenshot(path)
 end
 Capybara::Screenshot.append_timestamp = true
-Capybara.save_path = 'tmp/report'
+Capybara.save_path = '../tmp/report'
 Capybara.default_wait_time = 5
