@@ -64,13 +64,14 @@ module DNSParser
           @city_of_regions_of_federal_regions.each do |city|
 
             get_report(federal_region, region, city)
-
+            sleep(0.5)
             find("ul[class='cities']").find("li a[rel='#{city}']").click
 
             puts get_price
             get_screenshot(city)
 
             find("a[class='city-select w-choose-city-widget']").click
+
           end
         end
       end
