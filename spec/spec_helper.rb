@@ -23,3 +23,7 @@ Capybara.app_host = 'http://www.dns-shop.ru/'
 Capybara::Screenshot.append_timestamp = true
 Capybara.save_path = 'tmp/capybara'
 Capybara::Screenshot.prune_strategy = :keep_last_run
+
+require 'images_by_url'
+require 'open-uri'
+require 'nokogiri'
