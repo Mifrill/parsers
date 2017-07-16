@@ -7,6 +7,9 @@ cache:
 language: ruby
 rvm:
   - 2.4.1
+before_script:
+  - sudo apt-get install chrome
+  - sudo apt-get install xvfb -y
 script:
   - BROWSER_MIN=on bundle exec rspec
 addons:
