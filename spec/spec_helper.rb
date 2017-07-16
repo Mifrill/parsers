@@ -30,4 +30,7 @@ require 'nokogiri'
 
 require 'simplecov'
 SimpleCov.start
+require 'codecov'
+SimpleCov.formatter = SimpleCov::Formatter::Codecov
 puts 'required simplecov'
+
