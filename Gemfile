@@ -9,3 +9,4 @@ gem 'selenium-webdriver', '~> 3.4.4'
 gem 'images_by_url', '0.1.1'
 gem 'simplecov', '~> 0.13.0', require: false
 gem 'codecov', require: false, group: :test
+gem 'headless', '~> 2.3.1'

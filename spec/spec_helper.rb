@@ -34,3 +34,8 @@ require 'codecov'
 SimpleCov.formatter = SimpleCov::Formatter::Codecov
 puts 'required simplecov'
 
+if ENV['BROWSER_MIN'] == 'on'
+  require 'headless'
+  headless = Headless.new
+  headless.start
+end
