@@ -32,9 +32,9 @@ if ENV['ENV'] == 'test'
   puts 'CodeCoverage Enabled'
   require 'simplecov'
   if ENV['CI']
-    SimpleCov.start
     require 'codecov'
     require 'codeclimate-test-reporter'
+    SimpleCov.start
     SimpleCov.formatter = SimpleCov::Formatter::Codecov
   else
     SimpleCov.start do
