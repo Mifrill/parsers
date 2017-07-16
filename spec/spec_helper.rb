@@ -28,11 +28,20 @@ require 'images_by_url'
 require 'open-uri'
 require 'nokogiri'
 
-require 'simplecov'
-SimpleCov.start
-require 'codecov'
-SimpleCov.formatter = SimpleCov::Formatter::Codecov
-puts 'required simplecov'
+if ENV['ENV'] == 'test'
+  puts 'CodeCoverage Enabled'
+  require 'simplecov'
+  if ENV['CI']
+    SimpleCov.start
+    require 'codecov'
+    require 'codeclimate-test-reporter'
+    SimpleCov.formatter = SimpleCov::Formatter::Codecov
+  else
+    SimpleCov.start do
+      add_filter 'some/path'
+    end
+  end
+end
 
 if ENV['BROWSER_MIN'] == 'on'
   require 'headless'
