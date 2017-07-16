@@ -16,7 +16,7 @@ Capybara::Screenshot.register_driver(:chrome) do |driver, path|
   driver.browser.save_screenshot(path)
 end
 
-Capybara.default_wait_time = 500
+Capybara.default_wait_time = 20
 Capybara.default_driver = :chrome
 Capybara.javascript_driver = :chrome
 Capybara.app_host = 'http://www.dns-shop.ru/'
@@ -27,3 +27,7 @@ Capybara::Screenshot.prune_strategy = :keep_last_run
 require 'images_by_url'
 require 'open-uri'
 require 'nokogiri'
+
+require 'simplecov'
+SimpleCov.start
+puts 'required simplecov'

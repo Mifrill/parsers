@@ -1,5 +1,14 @@
-sudo: true
+sudo: required
+dist: trusty
+notifications:
+  email: false
+cache:
+  bundler: true
 language: ruby
 rvm:
   - 2.4.1
-before_install: gem install bundler -v 1.14.6
+script:
+  - bundle exec rspec
+addons:
+  code_climate:
+    repo_token: 73d49b65ef405450e8f6d2b9c4a8030259dc91d1e8bf31f195765ace498d80d6
