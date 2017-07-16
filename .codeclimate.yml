@@ -1,6 +1,2 @@
-engines:
-  duplication:
-    enabled: true
-    config:
-      languages:
-        - ruby
+languages:
+  Ruby: true
