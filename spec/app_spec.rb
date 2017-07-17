@@ -6,7 +6,7 @@ describe DNSParser::Parser do
     expect(page).to have_content('DNS')
   end
 
-  describe 'some stuff which requires js', js: true do
+  describe 'some stuff which requires js', :js do
     before(:all) do
       page.driver.browser.manage.window.resize_to(1280, 1024)
     end
