@@ -4,37 +4,37 @@ module DNSParser
   class Parser
     include Capybara::DSL
 
-    def get_config
+    def config
       Capybara.app_host = 'http://www.dns-shop.ru/'
       page.driver.browser.manage.window.resize_to(1280, 1024)
     end
 
-    def get_price
+    def price
       find("input[class='form-control ui-autocomplete-input'").set(@site).native.send_keys(:enter)
-      find(".price_g span:first-child").text
+      find('.price_g span:first-child').text
     end
 
-    def get_item
-      @site = "5\" Смартфон Huawei Honor 5A 16 ГБ золотистый"
+    def item
+      @site = '5" Смартфон Huawei Honor 5A 16 ГБ золотистый'
     end
 
     def get_report(fed_reg, reg, city)
-      #TODO record JSON file report
+      # TODO: record JSON file report
       puts find("ul[class='regions-groups']").find("li a[data-group-id='#{fed_reg}']").text
       puts find("ul[class='regions']").find("li a[data-region-id='#{reg}']").text
       puts city
     end
 
-    def get_screenshot(city)
-      time = Time.now.strftime("%d.%m.%Y %H:%M")
+    def screenshot(city)
+      time = Time.now.strftime('%d.%m.%Y %H:%M')
       screenshot_path = city + '_screen_' + time + '.png'
       page.save_screenshot(screenshot_path, full: true)
     end
 
     def start_parser
-      get_config
+      config
 
-      get_item
+      item
 
       visit('/')
 
@@ -62,16 +62,14 @@ module DNSParser
           end
 
           @city_of_regions_of_federal_regions.each do |city|
-
             get_report(federal_region, region, city)
             sleep(0.5)
             find("ul[class='cities']").find("li a[rel='#{city}']").click
 
-            puts get_price
-            get_screenshot(city)
+            puts price
+            screenshot(city)
 
             find("a[class='city-select w-choose-city-widget']").click
-
           end
         end
       end
