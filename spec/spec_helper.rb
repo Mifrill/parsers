@@ -1,5 +1,3 @@
-require_relative '../app/app'
-
 require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
 require 'selenium-webdriver'
@@ -42,6 +40,8 @@ if ENV['ENV'] == 'test'
     end
   end
 end
+
+require_relative '../app/app'
 
 if ENV['BROWSER_MIN'] == 'on'
   require 'headless'
