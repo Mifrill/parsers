@@ -4,6 +4,7 @@ require 'selenium-webdriver'
 
 RSpec.configure do |config|
   config.include Capybara::DSL
+  config.filter_run_when_matching :focus
 end
 
 Capybara.register_driver :chrome do |app|
@@ -17,7 +18,7 @@ end
 Capybara.default_wait_time = 20
 Capybara.default_driver = :chrome
 Capybara.javascript_driver = :chrome
-Capybara.app_host = 'http://www.dns-shop.ru/'
+Capybara.app_host = 'https://www.zzap.ru'
 Capybara::Screenshot.append_timestamp = true
 Capybara.save_path = 'tmp/capybara'
 Capybara::Screenshot.prune_strategy = :keep_last_run
