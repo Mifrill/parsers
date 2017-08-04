@@ -26,7 +26,7 @@ describe DNSParser::Parser do
 
       array = []
       find_all('.row').each do |row|
-        array << {"#{row.find('.left').text.to_s}": row.find('.right').text.to_s}
+        array << { "#{row.find('.left').text.to_s}": row.find('.right').text.to_s }
       end
       pp array
     end
