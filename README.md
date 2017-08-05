@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/Mifrill/parsers.svg?branch=master)](https://travis-ci.org/Mifrill/parsers)
+[![CircleCI](https://circleci.com/gh/Mifrill/parsers.svg?style=svg)](https://circleci.com/gh/Mifrill/parsers)
 [ ![Codeship Status for Mifrill/parsers](https://app.codeship.com/projects/4aa1bc40-5c21-0135-71f7-12b712633443/status?branch=master)](https://app.codeship.com/projects/237773)
 [![Quality](http://img.shields.io/codeclimate/github/Mifrill/parsers.svg)](https://codeclimate.com/github/Mifrill/parsers)
 [![Coverage Status](https://img.shields.io/codeclimate/coverage/github/Mifrill/parsers.svg)](https://codeclimate.com/github/mifrill/parsers)

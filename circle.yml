@@ -1,0 +1,69 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/circleci-demo-ruby-rails
+    docker:
+      - image: circleci/ruby:2.4.1-node
+        environment:
+          RAILS_ENV: test
+          PGHOST: 127.0.0.1
+          PGUSER: root
+      #- image: circleci/postgres:9.6.2-alpine
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_DB: circle-test_test
+      - image: selenium/standalone-chrome:3.4.0
+    steps:
+      - checkout
+
+      # Restore bundle cache
+      - type: cache-restore
+        key: rails-demo-{{ checksum "Gemfile.lock" }}
+
+      - run: sudo apt install postgresql-client
+      # Bundle install dependencies
+      - run:
+          name: Install dependencies
+          command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs 4 --retry 3
+
+      # Install dependencies.
+      - run: sudo apt-get install software-properties-common
+      - run: lsb_release --a
+      - run: sudo apt-get update
+      - run: sudo apt-get install -y unzip xvfb libxi6 libgconf-2-4
+
+      # Install Chrome for Debian.
+      - run: echo "deb http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee -a /etc/apt/sources.list
+      - run: wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+      - run: sudo apt-get update && sudo apt-get install google-chrome-stable
+
+      # Install ChromeDriver.
+      - run: wget -N http://chromedriver.storage.googleapis.com/2.9/chromedriver_linux64.zip -P ~/
+      - run: unzip ~/chromedriver_linux64.zip -d ~/
+      - run: rm ~/chromedriver_linux64.zip
+      - run: sudo mv -f ~/chromedriver /usr/local/bin/chromedriver
+      - run: sudo chown root:root /usr/local/bin/chromedriver
+      - run: sudo chmod 0755 /usr/local/bin/chromedriver
+
+      # Install Selenium.
+      - run: wget -N http://selenium-release.storage.googleapis.com/3.4/selenium-server-standalone-3.4.0.jar -P ~/
+      - run: sudo mv -f ~/selenium-server-standalone-3.4.0.jar /usr/local/bin/selenium-server-standalone.jar
+      - run: sudo chown root:root /usr/local/bin/selenium-server-standalone.jar
+      - run: sudo chmod 0755 /usr/local/bin/selenium-server-standalone.jar
+
+      # Install xvfb
+      - run: sudo apt-get install xvfb -y
+      - run: sudo pkill Xvfb
+
+      # Store bundle cache
+      - save_cache:
+          key: rails-demo-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      - run:
+          name: Parallel RSpec
+          command: BROWSER_MIN=on rspec
+
+      # Save artifacts
+      - store_test_results:
+          path: ./coverage/.resultset.json
