@@ -62,7 +62,7 @@ jobs:
             - vendor/bundle
       - run:
           name: Parallel RSpec
-          command: BROWSER_MIN=on rspec
+          command: BROWSER_MIN=on bundle exec rspec
 
       # Save artifacts
       - store_test_results:
