@@ -11,5 +11,6 @@ gem 'rspec', '3.6.0'
 gem 'selenium-webdriver', '~> 3.4.4'
 # Generate code coverate reports
 gem 'codeclimate-test-reporter', '~> 1.0.8', require: false
+gem 'coveralls', require: false
 gem 'codecov', '~> 0.1.10', require: false
 gem 'simplecov', '~> 0.13.0', require: false
