@@ -6,10 +6,9 @@ class DeleteFile < BaseCommand
   end
 
   def execute
-    if File.exist?(@path)
-      @content = File.read(@path)
-      File.delete(@path)
-    end
+    return unless File.exist?(@path)
+    @content = File.read(@path)
+    File.delete(@path)
   end
 
   def unexecute
