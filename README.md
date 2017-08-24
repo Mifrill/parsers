@@ -9,6 +9,7 @@
 [![Dependency Status](https://gemnasium.com/badges/github.com/Mifrill/parsers.svg)](https://gemnasium.com/github.com/Mifrill/parsers)
 [![security](https://hakiri.io/github/Mifrill/parsers/master.svg)](https://hakiri.io/github/Mifrill/parsers/master)
 [![Inline docs](http://inch-ci.org/github/Mifrill/parsers.svg?branch=master)](http://inch-ci.org/github/Mifrill/parsers)
+[![Code Triagers Badge](https://www.codetriage.com/mifrill/parsers/badges/users.svg)](https://www.codetriage.com/mifrill/parsers)
     
     DNS::Parser
         time for one item: 01:30:05
