@@ -8,7 +8,7 @@ gem 'chromedriver-helper', '~> 1.1.0'
 gem 'headless', '~> 2.3.1'
 gem 'images_by_url', '0.1.4'
 gem 'rspec', '3.6.0'
-gem 'selenium-webdriver', '~> 3.5.0'
+gem 'selenium-webdriver', '~> 3.5.2'
 # Generate code coverate reports
 gem 'codeclimate-test-reporter', '~> 1.0.8', require: false
 gem 'codecov', '~> 0.1.10', require: false
