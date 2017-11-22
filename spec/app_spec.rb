@@ -16,7 +16,6 @@ describe DNSParser::Parser do
 
       find('#ctl00_BodyPlace_HomePanel_TextSearchControl_SearchTextTextBox_I').set('13411888')
       sleep(2)
-      find_all('#ctl00_BodyPlace_HomePanel_TextSearchControl_SearchSuggestGridView_DXDataRow1>.dx-wrap')[1].click
       expect(page).to have_content('')
     end
 
