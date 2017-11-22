@@ -13,8 +13,6 @@ describe DNSParser::Parser do
 
     it 'will use the default js driver' do
       visit '/'
-
-      find('#ctl00_BodyPlace_HomePanel_TextSearchControl_SearchTextTextBox_I').set('13411888')
       sleep(2)
       expect(page).to have_content('')
     end
