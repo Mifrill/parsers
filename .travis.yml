@@ -6,7 +6,7 @@ cache:
   bundler: true
 language: ruby
 rvm:
-  - 2.4.1
+  - 2.4.2
 before_script:
   - bundle install
 
