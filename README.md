@@ -11,6 +11,7 @@
 [![Inline docs](http://inch-ci.org/github/Mifrill/parsers.svg?branch=master)](http://inch-ci.org/github/Mifrill/parsers)
 [![Code Triagers Badge](https://www.codetriage.com/mifrill/parsers/badges/users.svg)](https://www.codetriage.com/mifrill/parsers)
 [![Dependency Status](https://dependencyci.com/github/Mifrill/parsers/badge)](https://dependencyci.com/github/Mifrill/parsers)
-    
+[![BCH compliance](https://bettercodehub.com/edge/badge/Mifrill/parsers?branch=master)](https://bettercodehub.com/)
+
     DNS::Parser
         time for one item: 01:30:05
