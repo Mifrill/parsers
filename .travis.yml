@@ -6,8 +6,9 @@ cache:
   bundler: true
 language: ruby
 rvm:
-  - 2.4.2
+  - 2.5.0
 before_script:
+  - gem update --system
   - bundle install
 
   # Install dependencies.

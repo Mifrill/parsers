@@ -2,7 +2,7 @@ version: "1.{build}"
 
 environment:
   matrix:
-    - RUBY_VERSION: 24
+    - RUBY_VERSION: 25
 install:
   - set PATH=C:\Ruby%RUBY_VERSION%\bin;%PATH%
   - git clone https://github.com/codahale/bcrypt-ruby.git
