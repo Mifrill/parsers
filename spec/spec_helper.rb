@@ -18,10 +18,10 @@ Capybara::Screenshot.register_driver(:chrome) do |driver, path|
   driver.browser.save_screenshot(path)
 end
 
-Capybara.default_wait_time = 20
+Capybara.default_max_wait_time = 20
 Capybara.default_driver = :chrome
 Capybara.javascript_driver = :chrome
-Capybara.app_host = 'https://www.zzap.ru'
+Capybara.app_host = 'https://www.google.com'
 Capybara::Screenshot.append_timestamp = true
 Capybara.save_path = 'tmp/capybara'
 Capybara::Screenshot.prune_strategy = :keep_last_run
