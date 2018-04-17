@@ -10,9 +10,9 @@ RSpec.describe ImagesByUrl do
 
     it 'does something useful' do
       url = 'http://yahoo.com'
-      links = JSON.parse(result.list_links_images(url))
+      links = JSON.parse(result.list_links_images(url)).map { |link| link['link'] }
 
-      expect(links.any? { |link| link['link']&.match(/\.(png|jpg|gif)$/)}).to be_truthy
+      expect(links.any?(/\.(png|jpg|gif)$/)).to be_truthy
     end
   end
 end
