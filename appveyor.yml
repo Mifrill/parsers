@@ -9,8 +9,8 @@ install:
   - cd bcrypt-ruby
   - gem build bcrypt.gemspec
   - gem install gem-compiler
-  - gem compile bcrypt-3.1.11.gem
-  - gem install ./bcrypt-3.1.11-x64-mingw32.gem
+  - gem compile bcrypt-3.1.12.gem
+  - gem install ./bcrypt-3.1.12-x64-mingw32.gem
   - cd ..
   - gem update --system
   - gem update bundler
