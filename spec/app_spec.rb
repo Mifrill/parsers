@@ -6,6 +6,12 @@ describe DNSParser::Parser do
     expect(page).to have_content('')
   end
 
+  it 'test' do
+    puts "Current browser: #{Capybara.javascript_driver}"
+    visit 'https://usedcrane.com.au/cranes'
+    expect(find_all(:xpath, "//div[@id='root']").first.text).not_to be_empty
+  end
+
   describe 'some stuff which requires js', :js do
     before(:all) do
       page.driver.browser.manage.window.resize_to(1280, 1024)
