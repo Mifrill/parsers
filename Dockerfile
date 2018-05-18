@@ -87,7 +87,7 @@ RUN dpkg-divert --add --rename --divert /opt/google/chrome/google-chrome.real /o
 USER root
 
 # Install app
-RUN git clone git@github.com:Mifrill/parsers.git /root/parsers
+RUN git clone https://github.com/Mifrill/parsers.git /root/parsers
 WORKDIR /root/parsers
 RUN rbenv exec bundle install
 
