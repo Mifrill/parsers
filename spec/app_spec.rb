@@ -12,6 +12,17 @@ describe DNSParser::Parser do
     expect(find_all(:xpath, "//div[@id='root']").first.text).not_to be_empty
   end
 
+  it 'map with argument' do
+    links = Array.new(4, "https://stackoverflow.com/questions/23695653/can-you-supply-arguments-to-the-mapmethod-syntax-in-ruby")
+
+    def link(tag)
+      url = Addressable::URI.parse(tag) # tag = xpath("//a"); a[:href]
+      url.path = "123"
+    end
+
+    expect(links.map(&self.method(:link))).to match_array(%w(123 123 123 123))
+  end
+
   describe 'some stuff which requires js', :js do
     before(:all) do
       page.driver.browser.manage.window.resize_to(1280, 1024)
