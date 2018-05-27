@@ -21,6 +21,9 @@ describe DNSParser::Parser do
     end
 
     expect(links.map(&self.method(:link))).to match_array(%w(123 123 123 123))
+
+    array = [1,3,5,7,9]
+    array.map(&:to_s).map(&proc { |a| a.gsub(/\d+/, "cool") })
   end
 
   describe 'some stuff which requires js', :js do
