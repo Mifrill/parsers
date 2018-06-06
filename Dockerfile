@@ -4,7 +4,7 @@ FROM ubuntu:latest
 
 LABEL maintainer='alexei.mifrill.strizhak@gmail.com'
 
-ARG ruby=2.5.0
+ARG ruby=2.5.1
 ARG chromedriver=2.35
 
 # TimeZone
