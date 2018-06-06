@@ -6,7 +6,7 @@ cache:
   bundler: true
 language: ruby
 rvm:
-  - 2.5.0
+  - 2.5.1
 services:
   - docker
 before_script:
