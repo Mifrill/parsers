@@ -31,6 +31,13 @@ describe DNSParser::Parser do
       page.driver.browser.manage.window.resize_to(1280, 1024)
     end
 
+    it 'Distil network detected' do
+      visit 'http://www.ironsearch.com/inventory.aspx?dealer_no=&group_id=3069344686@1'
+      sleep 20
+      puts page.body
+      expect(find_all(:xpath, "//*[contains(@class, 'listing')]").first.text).not_to be_empty
+    end
+
     it 'will use the default js driver' do
       visit '/'
       sleep(2)
