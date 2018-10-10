@@ -8,10 +8,9 @@ jobs:
           RAILS_ENV: test
           PGHOST: 127.0.0.1
           PGUSER: root
-      #- image: circleci/postgres:9.6.2-alpine
-        environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle-test_test
+      #- image: circleci/postgres:9.6.2-alpine
       - image: selenium/standalone-chrome:3.4.0
     steps:
       - checkout
@@ -38,7 +37,7 @@ jobs:
       - run: sudo apt-get update && sudo apt-get install google-chrome-stable
 
       # Install ChromeDriver.
-      - run: wget -N http://chromedriver.storage.googleapis.com/2.9/chromedriver_linux64.zip -P ~/
+      - run: wget -N http://chromedriver.storage.googleapis.com/2.42/chromedriver_linux64.zip -P ~/
       - run: unzip ~/chromedriver_linux64.zip -d ~/
       - run: rm ~/chromedriver_linux64.zip
       - run: sudo mv -f ~/chromedriver /usr/local/bin/chromedriver
