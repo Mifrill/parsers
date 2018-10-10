@@ -4,18 +4,20 @@ module DNSParser
   class Parser
     include Capybara::DSL
 
-    def config
-      Capybara.app_host = 'http://www.dns-shop.ru/'
-      page.driver.browser.manage.window.resize_to(1280, 1024)
+    attr_reader :item
+
+    def initialize
+      @config ||= begin
+        Capybara.app_host = 'http://www.dns-shop.ru/'
+        page.driver.browser.manage.window.resize_to(1280, 1024)
+      end
+
+      @item ||= '5" Смартфон Huawei Honor 5A 16 ГБ золотистый'
     end
 
     def price
-      find("input[class='form-control ui-autocomplete-input'").set(@site).native.send_keys(:enter)
+      find("input[class='form-control ui-autocomplete-input'").set(item).native.send_keys(:enter)
       find('.price_g span:first-child').text
-    end
-
-    def item
-      @site = '5" Смартфон Huawei Honor 5A 16 ГБ золотистый'
     end
 
     def get_report(fed_reg, reg, city)
@@ -32,10 +34,6 @@ module DNSParser
     end
 
     def start_parser
-      config
-
-      item
-
       visit('/')
 
       find("a[class='city-select w-choose-city-widget']").click
