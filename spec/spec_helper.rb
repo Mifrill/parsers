@@ -3,28 +3,11 @@ Coveralls.wear!
 
 require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
-require 'selenium-webdriver'
 
 RSpec.configure do |config|
   config.include Capybara::DSL
   config.filter_run_when_matching :focus
 end
-
-Capybara.register_driver :chrome do |app|
-  Capybara::Selenium::Driver.new(app, browser: :chrome)
-end
-
-Capybara::Screenshot.register_driver(:chrome) do |driver, path|
-  driver.browser.save_screenshot(path)
-end
-
-Capybara.default_max_wait_time = 20
-Capybara.default_driver = :chrome
-Capybara.javascript_driver = :chrome
-Capybara.app_host = 'https://www.google.com'
-Capybara::Screenshot.append_timestamp = true
-Capybara.save_path = 'tmp/capybara'
-Capybara::Screenshot.prune_strategy = :keep_last_run
 
 require 'images_by_url'
 require 'open-uri'
