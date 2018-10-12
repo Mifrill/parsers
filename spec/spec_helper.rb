@@ -29,9 +29,3 @@ if ENV['ENV'] == 'test'
 end
 
 require_relative '../app/app'
-
-if ENV['BROWSER_MIN'] == 'on'
-  require 'headless'
-  headless = Headless.new
-  headless.start
-end
