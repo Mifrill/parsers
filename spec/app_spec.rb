@@ -3,13 +3,8 @@ require('spec_helper')
 describe DNSParser::Parser do
   it 'should be true' do
     visit '/'
-    expect(page).to have_content('')
-  end
-
-  it 'test' do
     puts "Current browser: #{Capybara.javascript_driver}"
-    visit 'https://usedcrane.com.au/cranes'
-    expect(find_all(:xpath, "//div[@id='root']").first.text).not_to be_empty
+    expect(page).to have_content('')
   end
 
   it 'map with argument' do

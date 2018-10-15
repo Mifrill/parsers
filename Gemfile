@@ -5,7 +5,6 @@ ruby File.read(File.join(File.dirname(__FILE__), ".ruby-version"))[/(\d\.){2}\d/
 gem 'capybara'
 gem 'capybara-screenshot'
 gem 'chromedriver-helper'
-gem 'headless'
 gem 'images_by_url'
 gem 'selenium-webdriver'
 

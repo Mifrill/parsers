@@ -1,11 +1,9 @@
 # docker build -t parsers .
+# docker run -it --rm -v `pwd`:/root/parsers parsers
 
 FROM ubuntu:latest
 
 LABEL maintainer='alexei.mifrill.strizhak@gmail.com'
-
-ARG ruby=2.5.1
-ARG chromedriver=2.35
 
 # TimeZone
 ENV TZ 'Europe/Moscow'
@@ -46,6 +44,7 @@ RUN  curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 RUN  sudo apt-get install -y nodejs
 
 # Install ruby
+ARG ruby=2.5.1
 RUN git clone https://github.com/rbenv/rbenv.git /root/.rbenv
 RUN git clone https://github.com/rbenv/ruby-build.git /root/.rbenv/plugins/ruby-build
 ENV PATH /root/.rbenv/bin:$PATH
@@ -70,6 +69,7 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
     && google-chrome --version
 
 # Install Chrome WebDriver
+ARG chromedriver=2.35
 RUN wget --no-check-certificate https://chromedriver.storage.googleapis.com/$chromedriver/chromedriver_linux64.zip \
     && unzip chromedriver_linux64.zip \
     && rm chromedriver_linux64.zip \
@@ -83,12 +83,47 @@ RUN wget --no-check-certificate https://chromedriver.storage.googleapis.com/$chr
 RUN dpkg-divert --add --rename --divert /opt/google/chrome/google-chrome.real /opt/google/chrome/google-chrome \
     && echo "#!/bin/bash\nexec /opt/google/chrome/google-chrome.real --headless --no-sandbox --disable-gpu --disable-setuid-sandbox \"\$@\"" > /opt/google/chrome/google-chrome \
     && chmod 755 /opt/google/chrome/google-chrome
+# hack for chromeOptions
+ENV GOOGLE_CHROME_SHIM=''
+
+# Intall Firefox
+ARG FIREFOX_VERSION=latest
+RUN FIREFOX_DOWNLOAD_URL=$(if [ $FIREFOX_VERSION = "latest" ] || [ $FIREFOX_VERSION = "nightly-latest" ] || [ $FIREFOX_VERSION = "devedition-latest" ]; then echo "https://download.mozilla.org/?product=firefox-$FIREFOX_VERSION-ssl&os=linux64&lang=en-US"; else echo "https://download-installer.cdn.mozilla.net/pub/firefox/releases/$FIREFOX_VERSION/linux-x86_64/en-US/firefox-$FIREFOX_VERSION.tar.bz2"; fi) \
+  && apt-get update -qqy \
+  && apt-get -qqy --no-install-recommends install firefox \
+  && rm -rf /var/lib/apt/lists/* /var/cache/apt/* \
+  && wget --no-verbose -O /tmp/firefox.tar.bz2 $FIREFOX_DOWNLOAD_URL \
+  && apt-get -y purge firefox \
+  && rm -rf /opt/firefox \
+  && tar -C /opt -xjf /tmp/firefox.tar.bz2 \
+  && rm /tmp/firefox.tar.bz2 \
+  && mv /opt/firefox /opt/firefox-$FIREFOX_VERSION \
+  && ln -fs /opt/firefox-$FIREFOX_VERSION/firefox /usr/bin/firefox
+
+# Install GeckoDriver
+ARG GECKODRIVER_VERSION=latest
+RUN GK_VERSION=$(if [ ${GECKODRIVER_VERSION:-latest} = "latest" ]; then echo "0.23.0"; else echo $GECKODRIVER_VERSION; fi) \
+  && echo "Using GeckoDriver version: "$GK_VERSION \
+  && wget --no-verbose -O /tmp/geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v$GK_VERSION/geckodriver-v$GK_VERSION-linux64.tar.gz \
+  && rm -rf /opt/geckodriver \
+  && tar -C /opt -zxf /tmp/geckodriver.tar.gz \
+  && rm /tmp/geckodriver.tar.gz \
+  && mv /opt/geckodriver /opt/geckodriver-$GK_VERSION \
+  && chmod 755 /opt/geckodriver-$GK_VERSION \
+  && ln -fs /opt/geckodriver-$GK_VERSION /usr/bin/geckodriver
 
 USER root
+
+ENV DISPLAY=:99.0
+RUN printf '#!/bin/sh\nXvfb :99 -screen 0 1280x1024x24 &\nexec "$@"\n' > /tmp/entrypoint \
+    && chmod +x /tmp/entrypoint \
+    && sudo mv /tmp/entrypoint /docker-entrypoint.sh
 
 # Install app
 RUN git clone https://github.com/Mifrill/parsers.git /root/parsers
 WORKDIR /root/parsers
 RUN rbenv exec bundle install
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
 
 CMD /bin/bash
