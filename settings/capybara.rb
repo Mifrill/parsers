@@ -41,7 +41,7 @@ Capybara::Screenshot.register_driver(browser) do |driver, path|
   driver.browser.save_screenshot(path)
 end
 
-Capybara.run_server = true
+Capybara.run_server = false
 
 Capybara.default_driver    = browser
 Capybara.javascript_driver = browser

@@ -1,4 +1,5 @@
 # docker build -t parsers .
+# docker run -it --rm -v `pwd`:/root/parsers parsers
 
 FROM ubuntu:latest
 
@@ -6,6 +7,7 @@ LABEL maintainer='alexei.mifrill.strizhak@gmail.com'
 
 ARG ruby=2.5.1
 ARG chromedriver=2.35
+ARG geckodriver=0.19.1
 
 # TimeZone
 ENV TZ 'Europe/Moscow'
@@ -83,6 +85,14 @@ RUN wget --no-check-certificate https://chromedriver.storage.googleapis.com/$chr
 RUN dpkg-divert --add --rename --divert /opt/google/chrome/google-chrome.real /opt/google/chrome/google-chrome \
     && echo "#!/bin/bash\nexec /opt/google/chrome/google-chrome.real --headless --no-sandbox --disable-gpu --disable-setuid-sandbox \"\$@\"" > /opt/google/chrome/google-chrome \
     && chmod 755 /opt/google/chrome/google-chrome
+
+# GeckoDriver
+RUN wget -q "https://github.com/mozilla/geckodriver/releases/download/v$geckodriver/geckodriver-v$geckodriver-linux64.tar.gz" -O /tmp/geckodriver.tgz \
+    && tar zxf /tmp/geckodriver.tgz -C /usr/bin/ \
+    && rm /tmp/geckodriver.tgz
+
+# Install Firefox
+RUN apt-get update && apt-get install -y firefox
 
 USER root
 
