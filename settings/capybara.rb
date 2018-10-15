@@ -4,13 +4,13 @@ require 'capybara/dsl'
 require 'capybara-screenshot'
 require 'selenium-webdriver'
 
-browser = (ENV['BROWSER'] || 'chrome').to_sym
+browser = ENV.fetch('BROWSER', 'chrome').to_sym
 
 case browser
 when :firefox
   options = Selenium::WebDriver::Firefox::Options.new
   options.add_argument('--headless')
-  browser_options = { marionette: false }.merge(options.as_json)
+  browser_options = { marionette: true }.merge(options.as_json)
 when :chrome
   chrome_bin      = ENV.fetch('GOOGLE_CHROME_SHIM', nil)
   browser_options = begin
