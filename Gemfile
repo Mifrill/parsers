@@ -9,6 +9,7 @@ gem 'images_by_url'
 gem 'selenium-webdriver'
 
 group :dev, :test do
+  gem 'rake'
   gem 'rspec'
   gem 'codeclimate-test-reporter', require: false
   gem 'codecov', require: false

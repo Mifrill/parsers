@@ -25,6 +25,7 @@ if ENV['ENV'] == 'test'
     SimpleCov.start do
       add_filter 'some/path'
     end
+    SimpleCov.formatter = SimpleCov::Formatter::HTMLFormatter
   end
 end
 
