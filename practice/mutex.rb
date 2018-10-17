@@ -45,3 +45,25 @@ end
 threads.each(&:join)
 # ruby practice/mutex.rb > output.log
 # grep 'true, false' output.log | wc -l
+
+class BankAccount
+  def initialize(name, checking, savings)
+    @name, @checking, @savings = name, checking, savings
+    @lock = Mutex.new  # For thread safety
+  end
+
+  # Lock account and transfer money from savings to checking
+  def transfer_from_savings(x)
+    @lock.synchronize do
+      @savings -= x
+      @checking += x
+    end
+  end
+
+  # Lock account and report current balances
+  def report
+    @lock.synchronize do
+      "#@name\nChecking: #@checking\nSavings: #@savings"
+    end
+  end
+end
