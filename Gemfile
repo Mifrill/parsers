@@ -11,7 +11,6 @@ gem 'selenium-webdriver'
 group :dev, :test do
   gem 'rake'
   gem 'rspec'
-  gem 'codeclimate-test-reporter', require: false
   gem 'codecov', require: false
   gem 'coveralls', require: false
   gem 'simplecov', require: false
