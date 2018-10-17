@@ -18,12 +18,11 @@ if ENV['ENV'] == 'test'
   require 'simplecov'
   if ENV['CI']
     require 'codecov'
-    require 'codeclimate-test-reporter'
     SimpleCov.start
     SimpleCov.formatter = SimpleCov::Formatter::Codecov
   else
     SimpleCov.start do
-      add_filter 'some/path'
+      add_filter 'spec/'
     end
     SimpleCov.formatter = SimpleCov::Formatter::HTMLFormatter
   end

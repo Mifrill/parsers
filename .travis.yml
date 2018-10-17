@@ -7,6 +7,9 @@ cache:
 language: ruby
 rvm:
   - 2.5.1
+env:
+  global:
+  - CC_TEST_REPORTER_ID=73d49b65ef405450e8f6d2b9c4a8030259dc91d1e8bf31f195765ace498d80d6
 services:
   - docker
 before_script:
@@ -36,10 +39,15 @@ before_script:
   - sudo mv -f ~/selenium-server-standalone-3.4.0.jar /usr/local/share/
   - sudo chmod +x /usr/local/share/selenium-server-standalone-3.4.0.jar
   - sudo ln -s /usr/local/share/selenium-server-standalone-3.4.0.jar /usr/local/bin/selenium-server-standalone-3.4.0.jar
+
+  # Codeclimate coverage reporter
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 script:
   - ENV=test bundle exec rspec
   - docker build -t parsers .
   - docker run -i -t parsers /bin/sh -c "rbenv exec bundle exec rspec"
   - docker run -i -t --env BROWSER='firefox' parsers /bin/sh -c "rbenv exec bundle exec rspec"
 after_success:
-  - CODECLIMATE_REPO_TOKEN=73d49b65ef405450e8f6d2b9c4a8030259dc91d1e8bf31f195765ace498d80d6 bundle exec codeclimate-test-reporter
+- ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
