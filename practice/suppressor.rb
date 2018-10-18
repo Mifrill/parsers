@@ -1,8 +1,9 @@
 module OutputSuppressor
   def suppress_output
-    original_stdout, original_stderr = $stdout.clone, $stderr.clone
-    $stderr.reopen File.new("/dev/null", "w")
-    $stdout.reopen File.new("/dev/null", "w")
+    original_stdout = $stdout.clone
+    original_stderr = $stderr.clone
+    $stderr.reopen File.new('/dev/null', 'w')
+    $stdout.reopen File.new('/dev/null', 'w')
     yield if block_given?
   ensure
     $stdout.reopen original_stdout
@@ -16,7 +17,7 @@ class Test
   OUTPUT = 123
 
   def test
-    block =-> { OUTPUT }
+    block = -> { OUTPUT }
 
     puts block.call
 

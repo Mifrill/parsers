@@ -16,7 +16,7 @@ end
 
 attempts = 0
 begin
-  make_service_call()
+  make_service_call
 rescue Exception
   attempts += 1
   retry unless attempts > 2

@@ -35,7 +35,7 @@ class Location
 end
 
 address = Address.new
-address.address = ( { state: "IL", city: "Chicago", street: "Racine" })
+address.address = ({ state: 'IL', city: 'Chicago', street: 'Racine' })
 location = Location.new(address)
 puts location.city
 puts location.street
@@ -47,7 +47,7 @@ class DelegateLocation
   extend Forwardable
 
   attr_reader :address
-  delegate %i(street city state) => :address
+  delegate %i[street city state] => :address
 
   def initialize(address)
     @address = address
@@ -55,6 +55,6 @@ class DelegateLocation
 end
 
 location = DelegateLocation.new(address)
-puts "From delegate: " + location.city
-puts "From delegate: " + location.street
-puts "From delegate: " + location.state
+puts 'From delegate: ' + location.city
+puts 'From delegate: ' + location.street
+puts 'From delegate: ' + location.state

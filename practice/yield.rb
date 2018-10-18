@@ -12,12 +12,13 @@ show_numbers do |number|
 end
 
 def explicit(&block)
-  raise LocalJumpError, "No block given." unless block
-  block.call
+  raise LocalJumpError, 'No block given.' unless block
+
+  yield
 end
 
 explicit do
-  puts "From explicit block"
+  puts 'From explicit block'
 end
 
 begin
@@ -27,12 +28,13 @@ rescue LocalJumpError => e
 end
 
 def implicit
-  raise LocalJumpError, "No block given." unless block_given?
+  raise LocalJumpError, 'No block given.' unless block_given?
+
   yield
 end
 
 implicit do
-  puts "From Implicit block"
+  puts 'From Implicit block'
 end
 
 begin
@@ -47,11 +49,11 @@ class Menu
   include Enumerable
 
   def each
-    yield "pizza"
-    yield "spaghetti"
-    yield "salad"
-    yield "water"
-    yield "bread"
+    yield 'pizza'
+    yield 'spaghetti'
+    yield 'salad'
+    yield 'water'
+    yield 'bread'
   end
 end
 
@@ -61,7 +63,7 @@ menu_options.each do |item|
   puts "would you like : #{item}"
 end
 
-p menu_options.find { |item| item == "pizza" }
+p menu_options.find { |item| item == 'pizza' }
 p menu_options.select { |item| item.size <= 5 }
 p menu_options.reject { |item| item.size <= 5 }
 p menu_options.first

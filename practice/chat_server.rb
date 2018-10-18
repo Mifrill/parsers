@@ -72,13 +72,9 @@ class IOLoop
 
   def tick
     r, w = IO.select(@streams, @streams)
-    r.each do |stream|
-      stream.handle_read
-    end
+    r.each(&:handle_read)
 
-    w.each do |stream|
-      stream.handle_write
-    end
+    w.each(&:handle_write)
   end
 end
 
@@ -89,11 +85,13 @@ class Stream
   def initialize(io)
     @io = io
     # Store outgoing data in this String.
-    @writebuffer = ""
+    @writebuffer = ''
   end
 
   # This tells IO.select what IO to check for readiness
-  def to_io; @io end
+  def to_io
+    @io
+  end
 
   def <<(chunk)
     # Append to buffer; #handle_write is doing the actual writing.
@@ -113,6 +111,7 @@ class Stream
 
   def handle_write
     return if @writebuffer.empty?
+
     length = @io.write_nonblock(@writebuffer)
     # Slice away the data that was successfully written.
     @writebuffer.slice!(0, length)
@@ -131,7 +130,9 @@ class Server
     @io = io
   end
 
-  def to_io; @io end
+  def to_io
+    @io
+  end
 
   def handle_read
     sock = @io.accept_nonblock
@@ -144,7 +145,7 @@ class Server
   end
 end
 
-if $0 == __FILE__
+if $PROGRAM_NAME == __FILE__
   io = IOLoop.new
 
   class ChatServer

@@ -11,7 +11,7 @@ end
 consumer = Thread.new do
   5.times do |i|
     value = queue.pop
-    sleep rand(i/2) # simulate expense
+    sleep rand(i / 2) # simulate expense
     puts "consumed #{value}"
   end
 end
@@ -56,9 +56,7 @@ threads += 5.times.map do
     5.times do # while true
       task = nil
       mutex.synchronize do
-        while tasks.empty?
-          cond_var.wait(mutex)
-        end
+        cond_var.wait(mutex) while tasks.empty?
         # the `if tasks.count == 0` statement will never be true as the thread
         # will now only reach this line if the tasks array is not empty
         puts 'This thread has nothing to do' if tasks.count == 0
@@ -93,11 +91,7 @@ class SimpleQueue
 
   def shift(blocking = true)
     @mutex.synchronize do
-      if blocking
-        while @elems.empty?
-          @cond_var.wait(@mutex)
-        end
-      end
+      @cond_var.wait(@mutex) while @elems.empty? if blocking
 
       @elems.shift
     end

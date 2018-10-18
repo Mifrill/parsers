@@ -4,7 +4,7 @@ class SomeClassReader
   attr_reader :page
 
   def initialize
-    @page = "getter"
+    @page = 'getter'
   end
 end
 
@@ -14,12 +14,12 @@ class SomeClassWriter
   attr_writer :page
 end
 
-puts SomeClassWriter.new.page = "setter" # => setter
+puts SomeClassWriter.new.page = 'setter' # => setter
 
 class SomeClass
   attr_accessor :page
 end
 
 some_class = SomeClass.new
-some_class.page = "setter & getter"
+some_class.page = 'setter & getter'
 puts some_class.page # => setter & getter

@@ -3,7 +3,7 @@ def counters_with_mutex
   counters = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   5.times.map do
     Thread.new do
-      100000.times do
+      100_000.times do
         mutex.synchronize do
           counters.map! { |counter| counter + 1 }
         end
@@ -12,11 +12,12 @@ def counters_with_mutex
   end.each(&:join)
   counters.inspect
 end
+
 def counters_without_mutex
   counters = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   5.times.map do
     Thread.new do
-      100000.times do
+      100_000.times do
         counters.map! { |counter| counter + 1 }
       end
     end
@@ -33,11 +34,11 @@ mutex = Mutex.new
 flags = [false, false, false, false, false, false, false, false, false, false]
 threads = 50.times.map do
   Thread.new do
-    100000.times do
+    100_000.times do
       # don't do this! Reading from shared state requires a mutex!
       puts flags.to_s
       mutex.synchronize do
-        flags.map! { |f| !f }
+        flags.map!(&:!)
       end
     end
   end
@@ -48,8 +49,10 @@ threads.each(&:join)
 
 class BankAccount
   def initialize(name, checking, savings)
-    @name, @checking, @savings = name, checking, savings
-    @lock = Mutex.new  # For thread safety
+    @name = name
+    @checking = checking
+    @savings = savings
+    @lock = Mutex.new # For thread safety
   end
 
   # Lock account and transfer money from savings to checking
@@ -63,7 +66,7 @@ class BankAccount
   # Lock account and report current balances
   def report
     @lock.synchronize do
-      "#@name\nChecking: #@checking\nSavings: #@savings"
+      "#{@name}\nChecking: #{@checking}\nSavings: #{@savings}"
     end
   end
 end
