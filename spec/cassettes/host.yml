@@ -1,0 +1,172 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://127.0.0.1:9517/session
+    body:
+      encoding: UTF-8
+      string: '{"desiredCapabilities":{"browserName":"chrome","version":"","platform":"ANY","javascriptEnabled":true,"cssSelectorsEnabled":true,"takesScreenshot":false,"nativeEvents":false,"rotatable":false,"goog:chromeOptions":{"args":["--headless","--no-sandbox","--disable-gpu","--remote-debugging-port=9222"]}},"capabilities":{"firstMatch":[{"browserName":"chrome","goog:chromeOptions":{"args":["--headless","--no-sandbox","--disable-gpu","--remote-debugging-port=9222"]}}]}}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=UTF-8
+      User-Agent:
+      - selenium/3.14.1 (ruby linux)
+      Content-Length:
+      - '464'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '855'
+      Content-Type:
+      - application/json; charset=utf-8
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"sessionId":"57ca3937e4a8b0de15864a713e650b03","status":0,"value":{"acceptInsecureCerts":false,"acceptSslCerts":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"browserName":"chrome","chrome":{"chromedriverVersion":"2.43.600233
+        (523efee95e3d68b8719b3a1c83051aa63aa6b10d)","userDataDir":"/tmp/.org.chromium.Chromium.TIoi4z"},"cssSelectorsEnabled":true,"databaseEnabled":false,"goog:chromeOptions":{"debuggerAddress":"localhost:9222"},"handlesAlerts":true,"hasTouchScreen":false,"javascriptEnabled":true,"locationContextEnabled":true,"mobileEmulationEnabled":false,"nativeEvents":true,"networkConnectionEnabled":false,"pageLoadStrategy":"normal","platform":"Linux","rotatable":false,"setWindowRect":true,"takesHeapSnapshot":true,"takesScreenshot":true,"unexpectedAlertBehaviour":"","version":"70.0.3538.67","webStorageEnabled":true}}'
+    http_version: 
+  recorded_at: Fri, 19 Oct 2018 09:38:21 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:9517/session/57ca3937e4a8b0de15864a713e650b03/url
+    body:
+      encoding: UTF-8
+      string: '{"url":"https://www.google.com/"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=UTF-8
+      User-Agent:
+      - selenium/3.14.1 (ruby linux)
+      Content-Length:
+      - '33'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '72'
+      Content-Type:
+      - application/json; charset=utf-8
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"sessionId":"57ca3937e4a8b0de15864a713e650b03","status":0,"value":null}'
+    http_version: 
+  recorded_at: Fri, 19 Oct 2018 09:38:26 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:9517/session/57ca3937e4a8b0de15864a713e650b03/elements
+    body:
+      encoding: UTF-8
+      string: '{"using":"xpath","value":"/html"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=UTF-8
+      User-Agent:
+      - selenium/3.14.1 (ruby linux)
+      Content-Length:
+      - '33'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '104'
+      Content-Type:
+      - application/json; charset=utf-8
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"sessionId":"57ca3937e4a8b0de15864a713e650b03","status":0,"value":[{"ELEMENT":"0.8940401557499278-1"}]}'
+    http_version: 
+  recorded_at: Fri, 19 Oct 2018 09:38:28 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:9517/session/57ca3937e4a8b0de15864a713e650b03/element/0.8940401557499278-1/displayed
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=UTF-8
+      User-Agent:
+      - selenium/3.14.1 (ruby linux)
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '72'
+      Content-Type:
+      - application/json; charset=utf-8
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"sessionId":"57ca3937e4a8b0de15864a713e650b03","status":0,"value":true}'
+    http_version: 
+  recorded_at: Fri, 19 Oct 2018 09:38:28 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:9517/session/57ca3937e4a8b0de15864a713e650b03/element/0.8940401557499278-1/text
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=UTF-8
+      User-Agent:
+      - selenium/3.14.1 (ruby linux)
+      Cache-Control:
+      - no-cache
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '275'
+      Content-Type:
+      - application/json; charset=utf-8
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"sessionId":"57ca3937e4a8b0de15864a713e650b03","status":0,"value":"About
+        Store\nGmail\nImages\nSign in\nUnited Kingdom\nPrivacyTermsSettings\nAdvertisingBusiness\nCookies
+        help us deliver our services. By using our services, you agree to our use
+        of cookies.Learn moreGot it"}'
+    http_version: 
+  recorded_at: Fri, 19 Oct 2018 09:38:28 GMT
+recorded_with: VCR 4.0.0

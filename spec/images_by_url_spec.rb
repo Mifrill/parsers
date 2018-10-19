@@ -9,10 +9,12 @@ RSpec.describe ImagesByUrl do
     let(:result) { ImagesByUrl::ParseImagesByUrl.new }
 
     it 'does something useful' do
-      url = 'http://yahoo.com'
-      links = JSON.parse(result.list_links_images(url)).map { |link| link['link'] }
+      VCR.use_cassette("yahoo") do
+        url = 'http://yahoo.com'
+        links = JSON.parse(result.list_links_images(url)).map { |link| link['link'] }
 
-      expect(links.any?(/\.(png|jpg|gif)$/)).to be_truthy
+        expect(links.any?(/\.(png|jpg|gif)$/)).to be_truthy
+      end
     end
   end
 end
