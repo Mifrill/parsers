@@ -7,8 +7,10 @@ describe Parsers do
 
   context 'Parsers#remote_request' do
     it 'should remains rest-client object with status 200' do
-      request = Parsers.remote_request(@source)
-      expect(request.code).to eq(200)
+      VCR.use_cassette('source') do
+        request = Parsers.remote_request(@source)
+        expect(request.code).to eq(200)
+      end
     end
 
     it 'should retries if source if not found'
@@ -24,14 +26,19 @@ describe Parsers do
     end
 
     it 'should contains request method for new parser' do
-      expect(@parser.request(@source)).to be_truthy
+      VCR.use_cassette('rest_client') do
+        expect(@parser.request(@source)).to be_truthy
+      end
     end
   end
 
   it 'should be true' do
-    visit '/'
     puts "Current browser: #{Capybara.javascript_driver}"
-    expect(page).to have_content('')
+
+    VCR.use_cassette('host') do
+      visit '/'
+      expect(page).to have_content('')
+    end
   end
 
   it 'map with argument' do
@@ -54,23 +61,27 @@ describe Parsers do
     end
 
     it 'will use the default js driver' do
-      visit '/'
-      sleep(2)
-      expect(page).to have_content('')
+      VCR.use_cassette('host') do
+        visit '/'
+        sleep(2)
+        expect(page).to have_content('')
+      end
     end
 
     it 'nokogiri Test For Upwork' do
-      require 'pp'
-      visit "#{@source}/nokogiri.html"
+      VCR.use_cassette('nokogiri') do
+        require 'pp'
+        visit "#{@source}/nokogiri.html"
 
-      array = []
-      find_all('.row').each do |row|
-        array << { "#{row.find('.left').text.to_s}": row.find('.right').text.to_s }
+        array = []
+        find_all('.row').each do |row|
+          array << { "#{row.find('.left').text.to_s}": row.find('.right').text.to_s }
+        end
+        pp array
       end
-      pp array
     end
+  end
 
-    after(:all) do
-    end
+  after(:all) do
   end
 end
