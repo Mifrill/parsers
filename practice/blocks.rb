@@ -28,3 +28,16 @@ letter = Letter.new
 letter.each do |line|
   puts "[#{letter.title}] #{line}"
 end
+
+begin
+  # something which might raise an exception
+rescue StandardError => some_variable
+  # code that deals with some exception
+rescue StandardError => some_other_variable
+  # code that deals with some other exception
+else
+  # code that runs only if *no* exception was raised
+ensure
+  # ensure that this code always runs, no matter what
+  # does not change the final value of the block
+end
