@@ -4,7 +4,6 @@ class DNSParser
 
   def initialize
     @config ||= begin
-      Capybara.app_host = 'http://www.dns-shop.ru/'
       page.driver.browser.manage.window.resize_to(1280, 1024)
     end
 
@@ -12,7 +11,7 @@ class DNSParser
   end
 
   def start_parser
-    visit('/')
+    visit('http://www.dns-shop.ru/')
     find("a[class='city-select w-choose-city-widget']").click
 
     federal_regions = []
