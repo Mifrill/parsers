@@ -14,6 +14,7 @@ group :dev, :test do
   gem 'coveralls', require: false
   gem 'guard'
   gem 'guard-bundler'
+  gem 'guard-rspec', require: false
   gem 'guard-rubocop'
   gem 'rake'
   gem 'rspec'
