@@ -1,6 +1,14 @@
 require('spec_helper')
 
-describe DNSParser::Parser do
+describe Parsers do
+  it "Parsers#remote_request" do
+    expect(Parsers.remote_request('http://strizhak-group.ru').code).to eq(200)
+  end
+
+  it "Parsers#remote_request retries"
+end
+
+describe Parsers::DNSParser do
   it 'should be true' do
     visit '/'
     puts "Current browser: #{Capybara.javascript_driver}"

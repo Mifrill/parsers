@@ -7,6 +7,7 @@ gem 'capybara-screenshot'
 gem 'chromedriver-helper'
 gem 'images_by_url'
 gem 'selenium-webdriver'
+gem 'rest-client'
 
 group :dev, :test do
   gem 'rake'

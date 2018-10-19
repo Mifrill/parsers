@@ -1,9 +1,25 @@
 require_relative '../settings/capybara'
+require 'rest-client'
 
-module DNSParser
-  class Parser
-    include Capybara::DSL
+module Parsers
+  include Capybara::DSL
 
+  def self.remote_request(request_url)
+    begin
+      response = RestClient.get request_url
+    rescue RestClient::ResourceNotFound => error
+      @retries ||= 0
+      if @retries < @max_retries
+        @retries += 1
+        retry
+      else
+        raise error
+      end
+    end
+    response
+  end
+
+  class DNSParser
     attr_reader :item
 
     def initialize

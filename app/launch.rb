@@ -1,4 +1,4 @@
 require_relative 'app'
 
-report = DNSParser::Parser.new
+report = Parsers::DNSParser.new
 report.start_parser
