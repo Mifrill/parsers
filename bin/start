@@ -2,4 +2,4 @@
 
 rm -rf tmp/*
 
-ruby app/launch.rb
+ruby app/launch.rb $1

@@ -23,6 +23,7 @@ if ENV['ENV'] == 'test'
   else
     SimpleCov.start do
       add_filter 'spec/'
+      add_filter 'settings/'
     end
     SimpleCov.formatter = SimpleCov::Formatter::HTMLFormatter
   end
