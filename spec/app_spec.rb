@@ -1,14 +1,33 @@
 require('spec_helper')
 
 describe Parsers do
-  it "Parsers#remote_request" do
-    expect(Parsers.remote_request('http://strizhak-group.ru').code).to eq(200)
+  before do
+    @source = 'http://strizhak-group.ru'
   end
 
-  it "Parsers#remote_request retries"
-end
+  context "Parsers#remote_request" do
+    it "should remains rest-client object with status 200" do
+      request = Parsers.remote_request(@source)
+      expect(request.code).to eq(200)
+    end
 
-describe Parsers::DNSParser do
+    it "should retries if source if not found"
+  end
+
+  context "Parsers#build_parser" do
+    before do
+      @parser = Parsers.build_parser('DNS')
+    end
+
+    it "should remains initialized parser class" do
+      expect(@parser).to be_a_kind_of(DNSParser)
+    end
+
+    it "should contains request method for new parser" do
+      expect(@parser.request(@source)).to be_truthy
+    end
+  end
+
   it 'should be true' do
     visit '/'
     puts "Current browser: #{Capybara.javascript_driver}"
@@ -42,7 +61,7 @@ describe Parsers::DNSParser do
 
     it 'nokogiri Test For Upwork' do
       require 'pp'
-      visit 'http://strizhak-group.ru/nokogiri.html'
+      visit "#{@source}/nokogiri.html"
 
       array = []
       find_all('.row').each do |row|
