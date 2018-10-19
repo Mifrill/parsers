@@ -1,33 +1,29 @@
 require('spec_helper')
 
 describe Parsers do
-  before do
-    @source = 'http://strizhak-group.ru'
-  end
+  let(:source) { 'http://strizhak-group.ru' }
 
   context 'Parsers#remote_request' do
     it 'should remains rest-client object with status 200' do
       VCR.use_cassette('source') do
-        request = Parsers.remote_request(@source)
+        request = Parsers.remote_request(source)
         expect(request.code).to eq(200)
       end
     end
 
-    it 'should retries if source if not found'
+    it 'should retries if source is not found'
   end
 
   context 'Parsers#build_parser' do
-    before do
-      @parser = Parsers.build_parser('DNS')
-    end
+    let(:parser) { Parsers.build_parser('DNS') }
 
     it 'should remains initialized parser class' do
-      expect(@parser).to be_a_kind_of(DNSParser)
+      expect(parser).to be_a_kind_of(DNSParser)
     end
 
     it 'should contains request method for new parser' do
-      VCR.use_cassette('rest_client') do
-        expect(@parser.request(@source)).to be_truthy
+      VCR.use_cassette('source') do
+        expect(parser.request(source)).to be_truthy
       end
     end
   end
@@ -71,7 +67,7 @@ describe Parsers do
     it 'nokogiri Test For Upwork' do
       VCR.use_cassette('nokogiri') do
         require 'pp'
-        visit "#{@source}/nokogiri.html"
+        visit "#{source}/nokogiri.html"
 
         array = []
         find_all('.row').each do |row|
