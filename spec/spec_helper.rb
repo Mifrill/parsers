@@ -11,7 +11,7 @@ RSpec.configure do |config|
 
   # Add VCR to all tests
   VCR.configure do |c|
-    c.cassette_library_dir = "spec/cassettes"
+    c.cassette_library_dir = 'spec/cassettes'
     c.hook_into :webmock
     c.configure_rspec_metadata!
     c.ignore_localhost = true

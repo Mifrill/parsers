@@ -7,7 +7,7 @@ describe Parsers do
 
   context 'Parsers#remote_request' do
     it 'should remains rest-client object with status 200' do
-      VCR.use_cassette("source") do
+      VCR.use_cassette('source') do
         request = Parsers.remote_request(@source)
         expect(request.code).to eq(200)
       end
@@ -26,7 +26,7 @@ describe Parsers do
     end
 
     it 'should contains request method for new parser' do
-      VCR.use_cassette("rest_client") do
+      VCR.use_cassette('rest_client') do
         expect(@parser.request(@source)).to be_truthy
       end
     end
@@ -35,7 +35,7 @@ describe Parsers do
   it 'should be true' do
     puts "Current browser: #{Capybara.javascript_driver}"
 
-    VCR.use_cassette("host") do
+    VCR.use_cassette('host') do
       visit '/'
       expect(page).to have_content('')
     end
@@ -61,7 +61,7 @@ describe Parsers do
     end
 
     it 'will use the default js driver' do
-      VCR.use_cassette("host") do
+      VCR.use_cassette('host') do
         visit '/'
         sleep(2)
         expect(page).to have_content('')
@@ -69,7 +69,7 @@ describe Parsers do
     end
 
     it 'nokogiri Test For Upwork' do
-      VCR.use_cassette("nokogiri") do
+      VCR.use_cassette('nokogiri') do
         require 'pp'
         visit "#{@source}/nokogiri.html"
 
