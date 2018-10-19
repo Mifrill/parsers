@@ -4,6 +4,7 @@ Coveralls.wear!
 require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
 require 'vcr'
+require 'webmock'
 
 RSpec.configure do |config|
   config.include Capybara::DSL
