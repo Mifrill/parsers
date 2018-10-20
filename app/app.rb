@@ -1,4 +1,6 @@
 require_relative '../settings/capybara'
+require_relative 'runner'
+
 require 'rest-client'
 
 module Parsers
