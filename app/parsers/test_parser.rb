@@ -12,7 +12,6 @@ class TestParser
 
   def second
     puts __method__
-    byebug
     yield task(parser: self.class, method: :third, url: "http://google.com/", data: {})
   end
 

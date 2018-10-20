@@ -43,27 +43,32 @@ module Parsers
 
   def start
     @@runner = Runner.new
-    queue   = Queue.new
+    mutex    = Mutex.new
 
-    @@runner << begin
-      { parser: self.class, method: self.config.dig(:start, :method), url: self.config.dig(:start, :url), data: {} }
+    mutex.synchronize do
+      @@runner << begin
+        {
+          parser: self.class,
+          method: self.config.dig(:start, :method),
+          url:    self.config.dig(:start, :url),
+          data:   {}
+        }
+      end
     end
 
     threads = []
 
     loop do
       threads << Thread.new do
-        @@runner.each do |task|
-          visit(task[:url])
+        mutex.synchronize do
+          @@runner.each do |task|
+            visit(task[:url])
 
-          task[:parser].new.send task[:method] do |result|
-            queue << result.pop
+            task[:parser].new.send task[:method] do |result|
+              result
+            end
           end
         end
-      end
-
-      threads << Thread.new do
-        queue.pop
       end
 
       threads.map(&:join)
