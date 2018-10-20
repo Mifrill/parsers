@@ -2,17 +2,18 @@ require 'byebug'
 
 class TestParser
   def initialize
-    @config = { start: :parse, url: "http://google.com" }
+    @config = { start: { method: :first, url: "http://google.com" }}
   end
 
   def first
     puts __method__
-    yield Runner.run(parser: self.class, method: :second, url: nil, data: {})
+    yield task(parser: self.class, method: :second, url: "http://google.com/", data: {})
   end
 
   def second
     puts __method__
-    yield Runner.run(parser: self.class, method: :third, url: nil, data: {})
+    byebug
+    yield task(parser: self.class, method: :third, url: "http://google.com/", data: {})
   end
 
   def third

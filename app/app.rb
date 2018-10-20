@@ -25,7 +25,8 @@ module Parsers
     def build_parser(parser)
       require_relative "parsers/#{parse_name(parser)}"
       klass = parse_class(parser)
-      klass.send :include, self
+      klass.include self
+      klass.attr_reader(:config)
       klass.new
     end
 
@@ -38,6 +39,41 @@ module Parsers
     def parse_class(text)
       Kernel.const_get("#{text}Parser")
     end
+  end
+
+  def start
+    @@runner = Runner.new
+    queue   = Queue.new
+
+    @@runner << begin
+      { parser: self.class, method: self.config.dig(:start, :method), url: self.config.dig(:start, :url), data: {} }
+    end
+
+    threads = []
+
+    loop do
+      threads << Thread.new do
+        @@runner.each do |task|
+          visit(task[:url])
+
+          task[:parser].new.send task[:method] do |result|
+            queue << result.pop
+          end
+        end
+      end
+
+      threads << Thread.new do
+        queue.pop
+      end
+
+      threads.map(&:join)
+
+      break threads.empty?
+    end
+  end
+
+  def task(args)
+    @@runner << args
   end
 
   def request(*args)

@@ -12,6 +12,7 @@ gem 'mechanize'
 gem 'capybara-mechanize'
 
 group :dev, :test do
+  gem 'byebug'
   gem 'codecov', require: false
   gem 'coveralls', require: false
   gem 'guard'
