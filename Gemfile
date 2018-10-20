@@ -8,6 +8,8 @@ gem 'chromedriver-helper'
 gem 'images_by_url'
 gem 'rest-client'
 gem 'selenium-webdriver'
+gem 'mechanize'
+gem 'capybara-mechanize'
 
 group :dev, :test do
   gem 'codecov', require: false
