@@ -15,8 +15,8 @@ guard :rubocop, all_on_start: false, cli: '-a' do
   watch(%r{(?:.+/)?\.rubocop(?:_todo)?\.yml$}) { |m| File.dirname(m[0]) }
 end
 
-guard :rspec, cmd: "bundle exec rspec" do
-  require "guard/rspec/dsl"
+guard :rspec, cmd: 'bundle exec rspec' do
+  require 'guard/rspec/dsl'
   dsl = Guard::RSpec::Dsl.new(self)
 
   # RSpec files

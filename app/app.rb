@@ -49,8 +49,8 @@ module Parsers
       @@runner << begin
         {
           parser: self.class,
-          method: self.config.dig(:start, :method),
-          url:    self.config.dig(:start, :url),
+          method: config.dig(:start, :method),
+          url:    config.dig(:start, :url),
           data:   {}
         }
       end

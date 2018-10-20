@@ -4,7 +4,7 @@ module Parsers
       @tasks = []
     end
 
-    def << (args)
+    def <<(args)
       @tasks << args
     end
 

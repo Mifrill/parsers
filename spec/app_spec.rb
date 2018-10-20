@@ -29,7 +29,7 @@ describe Parsers do
   end
 
   it 'should be true' do
-    puts "Current browser: #{Capybara.javascript_driver}"
+    puts "Current driver: #{Capybara.default_driver}"
 
     VCR.use_cassette('host') do
       visit '/'
