@@ -9,7 +9,7 @@ module Parsers
     end
 
     def show
-      PP.pp parser
+      PP.pp self
     end
 
     def execute

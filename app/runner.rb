@@ -7,23 +7,27 @@ module Parsers
       @threads = []
     end
 
-    def <<(task)
+    def add_task(task)
       threads << Thread.new do
         queue << task
         puts "produced: #{task}"
       end
     end
 
-    def execute
+    def execute_task
       threads << Thread.new do
-        value = queue.pop
-        puts "consumed: #{value}"
-        value.execute
+        task = queue.pop
+        puts "consumed: #{task}"
+        task.execute
       end
     end
 
-    def join
+    def thread_run
       threads.map(&:join)
+    end
+
+    def done?
+      queue.empty?
     end
   end
 end

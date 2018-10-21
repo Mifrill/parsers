@@ -25,8 +25,8 @@ module Parsers
     def build_parser(parser)
       require_relative "parsers/#{parse_name(parser)}"
       klass = parse_class(parser)
-      klass.include self
-      klass.attr_reader(:config)
+      klass.include self, Capybara::DSL
+      klass.attr_reader :config
       klass.new
     end
 
@@ -41,32 +41,20 @@ module Parsers
     end
   end
 
-  def runner
-    @@runner ||= Runner.new
-  end
-
   def start
-    runner << begin
-      Task.new(
-        parser: self,
-        method: config.dig(:start, :method),
-        url:    config.dig(:start, :url),
-        data:   {}
-      )
-    end
+    runner.add_task first_task
 
     loop do
-      runner.execute
-      runner.join
+      runner.execute_task
+      runner.thread_run
 
-      break if runner.queue.empty?
+      break if runner.done?
     end
   end
 
   def task(args)
     task = Task.new args
-    runner << (task)
-    puts "new task is added:\n"
+    runner.add_task task
     task.show
     task
   end
@@ -74,5 +62,20 @@ module Parsers
   def request(*args)
     url, = args
     Parsers.remote_request(url)
+  end
+
+  private
+
+  def runner
+    @@runner ||= Runner.new
+  end
+
+  def first_task
+    Task.new(
+      parser: self,
+      method: config.dig(:start, :method),
+      url:    config.dig(:start, :url),
+      data:   {}
+    )
   end
 end
