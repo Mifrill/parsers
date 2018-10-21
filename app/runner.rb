@@ -22,7 +22,7 @@ module Parsers
       end
     end
 
-    def thread_run
+    def run_threads
       threads.map(&:join)
     end
 

@@ -15,10 +15,10 @@ describe Parsers do
   end
 
   context 'Parsers#build_parser' do
-    let(:parser) { Parsers.build_parser('DNS') }
+    let(:parser) { Parsers.build_parser('Test') }
 
     it 'should remains initialized parser class' do
-      expect(parser).to be_a_kind_of(DNSParser)
+      expect(parser).to be_a_kind_of(TestParser)
     end
 
     it 'should contains request method for new parser' do

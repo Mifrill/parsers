@@ -23,7 +23,7 @@ module Parsers
     end
 
     def build_parser(parser)
-      require_relative "parsers/#{parse_name(parser)}"
+      require_relative "../parsers/#{parse_name(parser)}"
       klass = parse_class(parser)
       klass.include self, Capybara::DSL
       klass.attr_reader :config
@@ -46,7 +46,7 @@ module Parsers
 
     loop do
       runner.execute_task
-      runner.thread_run
+      runner.run_threads
 
       break if runner.done?
     end
