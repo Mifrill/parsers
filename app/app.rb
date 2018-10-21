@@ -71,7 +71,7 @@ module Parsers
   private
 
   def runner
-    @@runner ||= Runner.new
+    @runner ||= Runner.new
   end
 
   def first_task
