@@ -7,14 +7,14 @@ require 'mechanize'
 require 'capybara/mechanize'
 
 browser = ENV.fetch('BROWSER', 'chrome').to_sym
-driver  = ENV.fetch('DRIVER', 'mechanize').to_sym
+driver  = ENV.fetch('DRIVER', 'selenium').to_sym
 
 case driver
 when :mechanize
-  Capybara.register_driver driver do |app|
-    driver = Capybara::Mechanize::Driver.new("app")
+  Capybara.register_driver driver do |_app|
+    driver = Capybara::Mechanize::Driver.new('app')
     driver.configure do |agent|
-      agent.log = Logger.new "mech.log"
+      agent.log = Logger.new 'mech.log'
       agent.user_agent_alias = 'Mac Safari'
     end
     driver
@@ -40,14 +40,14 @@ when :selenium
       end
     end
   else
-    raise "Unknown browser"
+    raise 'Unknown browser'
   end
 
   capabilities = Selenium::WebDriver::Remote::Capabilities.send(browser, browser_options)
 
   Capybara.register_driver driver do |app|
     Capybara::Selenium::Driver.new(
-      app,  browser: browser, desired_capabilities: capabilities
+      app, browser: browser, desired_capabilities: capabilities
     )
   end
 
@@ -62,7 +62,7 @@ when :selenium
   Capybara.javascript_driver     = driver
   Capybara.default_max_wait_time = 10
 else
-  raise "Unknown driver"
+  raise 'Unknown driver'
 end
 
 Capybara.run_server     = false

@@ -26,15 +26,16 @@ require 'nokogiri'
 if ENV['ENV'] == 'test'
   puts 'CodeCoverage Enabled'
   require 'simplecov'
+
+  SimpleCov.start do
+    add_filter 'spec/'
+    add_filter 'settings/'
+  end
+
   if ENV['CI']
     require 'codecov'
-    SimpleCov.start
     SimpleCov.formatter = SimpleCov::Formatter::Codecov
   else
-    SimpleCov.start do
-      add_filter 'spec/'
-      add_filter 'settings/'
-    end
     SimpleCov.formatter = SimpleCov::Formatter::HTMLFormatter
   end
 end

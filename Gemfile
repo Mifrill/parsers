@@ -3,15 +3,16 @@ source 'https://rubygems.org'
 ruby File.read(File.join(File.dirname(__FILE__), '.ruby-version'))[/(\d\.){2}\d/]
 
 gem 'capybara'
+gem 'capybara-mechanize'
 gem 'capybara-screenshot'
 gem 'chromedriver-helper'
 gem 'images_by_url'
+gem 'mechanize'
 gem 'rest-client'
 gem 'selenium-webdriver'
-gem 'mechanize'
-gem 'capybara-mechanize'
 
 group :dev, :test do
+  gem 'byebug'
   gem 'codecov', require: false
   gem 'coveralls', require: false
   gem 'guard'

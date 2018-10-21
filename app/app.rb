@@ -1,11 +1,11 @@
 require_relative '../settings/capybara'
 require_relative 'runner'
+require_relative 'task'
 
+require 'pp'
 require 'rest-client'
 
 module Parsers
-  include Capybara::DSL
-
   class << self
     def remote_request(request_url)
       begin
@@ -23,9 +23,10 @@ module Parsers
     end
 
     def build_parser(parser)
-      require_relative "parsers/#{parse_name(parser)}"
+      require_relative "../parsers/#{parse_name(parser)}"
       klass = parse_class(parser)
-      klass.send :include, self
+      klass.include self, Capybara::DSL
+      klass.attr_reader :config
       klass.new
     end
 
@@ -40,8 +41,45 @@ module Parsers
     end
   end
 
+  def start
+    runner.add_task first_task
+
+    mutex = Mutex.new
+
+    loop do
+      mutex.synchronize do
+        runner.execute_task
+        runner.run_threads
+      end
+
+      break if runner.done?
+    end
+  end
+
+  def task(args)
+    task = Task.new args
+    runner.add_task task
+    task.show
+    task
+  end
+
   def request(*args)
     url, = args
     Parsers.remote_request(url)
+  end
+
+  private
+
+  def runner
+    @runner ||= Runner.new
+  end
+
+  def first_task
+    Task.new(
+      parser: self,
+      method: config.dig(:start, :method),
+      url:    config.dig(:start, :url),
+      data:   {}
+    )
   end
 end
