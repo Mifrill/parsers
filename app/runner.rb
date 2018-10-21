@@ -23,7 +23,7 @@ module Parsers
     end
 
     def run_threads
-      threads.map(&:join)
+      threads.shift.join until threads.empty?
     end
 
     def done?

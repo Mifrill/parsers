@@ -9,7 +9,7 @@ describe Parsers::Task do
     )
   end
 
-  context 'Parsers#execute' do
+  context 'Parsers::Task#execute' do
     before do
       allow(parser).to receive(:test).and_return(something: 'testing')
     end
@@ -26,7 +26,7 @@ describe Parsers::Task do
     end
   end
 
-  it 'Parsers#show: displays the data of current task' do
+  it 'Parsers::Task#show: displays the data of current task' do
     allow(PP).to receive(:pp).and_return(task.inspect)
     expect(task.show).to eq(task.inspect)
   end

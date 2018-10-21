@@ -44,9 +44,13 @@ module Parsers
   def start
     runner.add_task first_task
 
+    mutex = Mutex.new
+
     loop do
-      runner.execute_task
-      runner.run_threads
+      mutex.synchronize do
+        runner.execute_task
+        runner.run_threads
+      end
 
       break if runner.done?
     end
