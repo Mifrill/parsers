@@ -58,6 +58,8 @@ module Parsers
     loop do
       runner.execute
       runner.join
+
+      break if runner.queue.empty?
     end
   end
 

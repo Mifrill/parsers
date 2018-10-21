@@ -23,7 +23,7 @@ module Parsers
     end
 
     def join
-      threads.each { |t| t.join 1 }
+      threads.map(&:join)
     end
   end
 end
