@@ -7,16 +7,16 @@ class TestParser
 
   def first
     puts __method__
-    yield task(parser: self.class, method: :second, url: 'http://google.com/', data: {})
+    task(parser: self, method: :second, url: 'http://google.com/', data: {})
   end
 
   def second
     puts __method__
-    yield task(parser: self.class, method: :third, url: 'http://google.com/', data: {})
+    task(parser: self, method: :third, url: 'http://google.com/', data: {})
   end
 
   def third
     puts __method__
-    yield -> { puts 'done' }.call
+    -> { puts 'done' }.call
   end
 end

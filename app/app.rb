@@ -2,6 +2,7 @@ require_relative '../settings/capybara'
 require_relative 'runner'
 require_relative 'task'
 
+require 'pp'
 require 'rest-client'
 
 module Parsers
@@ -47,7 +48,7 @@ module Parsers
   def start
     runner << begin
       Task.new(
-        parser: self.class,
+        parser: self,
         method: config.dig(:start, :method),
         url:    config.dig(:start, :url),
         data:   {}
@@ -61,7 +62,11 @@ module Parsers
   end
 
   def task(args)
-    runner << (Task.new args)
+    task = Task.new args
+    runner << (task)
+    puts "new task is added:\n"
+    task.show
+    task
   end
 
   def request(*args)

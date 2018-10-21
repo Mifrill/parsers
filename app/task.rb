@@ -8,12 +8,14 @@ module Parsers
       @parser, @method, @url, @data = parser, method, url, data
     end
 
+    def show
+      PP.pp parser
+    end
+
     def execute
       visit(url)
 
-      parser.new.send method do |result|
-        result
-      end
+      parser.send method
     end
   end
 end
