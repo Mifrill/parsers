@@ -7,12 +7,18 @@ class TestParser
 
   def first
     puts __method__
-    task(parser: self, method: :second, url: 'http://google.com/', data: {})
+
+    2.times do
+      task(parser: self, method: :second, url: 'http://google.com/', data: {})
+    end
   end
 
   def second
     puts __method__
-    task(parser: self, method: :third, url: 'http://google.com/', data: {})
+
+    2.times do
+      task(parser: self, method: :third, url: 'http://google.com/', data: {})
+    end
   end
 
   def third
