@@ -5,7 +5,10 @@ module Parsers
     attr_reader :parser, :method, :url, :data
 
     def initialize(parser:, method:, url:, data:)
-      @parser, @method, @url, @data = parser, method, url, data
+      @parser = parser
+      @method = method
+      @url    = url
+      @data   = data
     end
 
     def show
