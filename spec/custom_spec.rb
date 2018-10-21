@@ -20,6 +20,8 @@ RSpec.describe ImagesByUrl do
 end
 
 describe Parsers do
+  let(:source) { 'http://strizhak-group.ru' }
+
   it 'should be true' do
     puts "Current driver: #{Capybara.default_driver}"
 
