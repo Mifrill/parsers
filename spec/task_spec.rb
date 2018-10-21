@@ -3,14 +3,13 @@ require 'spec_helper'
 describe Parsers::Task do
   let(:parser) { Object.new }
   let(:source) { 'http://strizhak-group.ru/' }
+  let(:task) do
+    Parsers::Task.new(
+      parser: parser, method: :test, url: source, data: {}
+    )
+  end
 
   context 'Parsers#execute' do
-    let(:task) do
-      Parsers::Task.new(
-        parser: parser, method: :test, url: source, data: {}
-      )
-    end
-
     before do
       allow(parser).to receive(:test).and_return(something: 'testing')
     end
@@ -25,5 +24,10 @@ describe Parsers::Task do
         expect(task.page.current_url).to eq(source)
       end
     end
+  end
+
+  it 'Parsers#show: displays the data of current task' do
+    allow(PP).to receive(:pp).and_return(task.inspect)
+    expect(task.show).to eq(task.inspect)
   end
 end
