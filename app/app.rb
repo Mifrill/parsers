@@ -1,11 +1,10 @@
 require_relative '../settings/capybara'
 require_relative 'runner'
+require_relative 'task'
 
 require 'rest-client'
 
 module Parsers
-  include Capybara::DSL
-
   class << self
     def remote_request(request_url)
       begin
@@ -41,44 +40,28 @@ module Parsers
     end
   end
 
-  def start
-    @@runner = Runner.new
-    mutex    = Mutex.new
+  def runner
+    @@runner ||= Runner.new
+  end
 
-    mutex.synchronize do
-      @@runner << begin
-        {
-          parser: self.class,
-          method: config.dig(:start, :method),
-          url:    config.dig(:start, :url),
-          data:   {}
-        }
-      end
+  def start
+    runner << begin
+      Task.new(
+        parser: self.class,
+        method: config.dig(:start, :method),
+        url:    config.dig(:start, :url),
+        data:   {}
+      )
     end
 
-    threads = []
-
     loop do
-      threads << Thread.new do
-        mutex.synchronize do
-          @@runner.each do |task|
-            visit(task[:url])
-
-            task[:parser].new.send task[:method] do |result|
-              result
-            end
-          end
-        end
-      end
-
-      threads.map(&:join)
-
-      break threads.empty?
+      runner.execute
+      runner.join
     end
   end
 
   def task(args)
-    @@runner << args
+    runner << (Task.new args)
   end
 
   def request(*args)

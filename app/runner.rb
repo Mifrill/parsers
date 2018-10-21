@@ -1,15 +1,29 @@
 module Parsers
   class Runner
+    attr_reader :queue, :threads
+
     def initialize
-      @tasks = []
+      @queue   = Queue.new
+      @threads = []
     end
 
-    def <<(args)
-      @tasks << args
+    def <<(task)
+      threads << Thread.new do
+        queue << task
+        puts "produced: #{task}"
+      end
     end
 
-    def each(&block)
-      @tasks.each(&block)
+    def execute
+      threads << Thread.new do
+        value = queue.pop
+        puts "consumed: #{value}"
+        value.execute
+      end
+    end
+
+    def join
+      threads.each { |t| t.join 1 }
     end
   end
 end

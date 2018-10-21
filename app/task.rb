@@ -1,26 +1,19 @@
-class Task
-  attr_reader :queue, :threads
+module Parsers
+  class Task
+    include Capybara::DSL
 
-  def initialize
-    @queue   = Queue.new
-    @threads = []
-  end
+    attr_reader :parser, :method, :url, :data
 
-  def add(task)
-    threads << Thread.new do
-      queue << task
-      puts "#{i} produced"
+    def initialize(parser:, method:, url:, data:)
+      @parser, @method, @url, @data = parser, method, url, data
     end
-  end
 
-  def execute
-    threads << Thread.new do
-      value = queue.pop
-      puts "consumed #{value}"
+    def execute
+      visit(url)
+
+      parser.new.send method do |result|
+        result
+      end
     end
-  end
-
-  def join
-    threads.map(&:join)
   end
 end
