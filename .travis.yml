@@ -47,7 +47,6 @@ before_script:
 script:
   - ENV=test bundle exec rspec
   - docker build -t parsers .
-  - docker run -i -t parsers /bin/sh -c "rbenv exec bundle exec rspec"
-  - docker run -i -t --env BROWSER='firefox' parsers /bin/sh -c "rbenv exec bundle exec rspec"
+  - docker run -i -t --env BROWSER='chrome' parsers /bin/sh -c "rbenv exec bundle exec rspec"
 after_success:
 - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT

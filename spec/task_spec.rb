@@ -15,6 +15,13 @@ describe Parsers::Task do
     end
 
     VCR.use_cassette('source') do
+      # FIXME: order
+      it 'should make data reader for current parser' do
+        expect { parser.data }.to raise_error(NoMethodError)
+        task.execute
+        expect(parser.data).to eq(123)
+      end
+
       it 'should returns the result of parser method' do
         expect(task.execute).to eq(something: 'testing')
       end
@@ -22,12 +29,6 @@ describe Parsers::Task do
       it 'should visit url which is specified' do
         task.execute
         expect(task.page.current_url).to eq(source)
-      end
-
-      it 'should make data reader for current parser' do
-        expect { parser.data }.to raise_error(NoMethodError)
-        task.execute
-        expect(parser.data).to eq(123)
       end
     end
   end

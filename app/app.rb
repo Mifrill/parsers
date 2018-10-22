@@ -6,6 +6,19 @@ require 'rest-client'
 
 module Parsers
   class << self
+    def remote_request(request_url)
+      begin
+        response = RestClient.get request_url
+      rescue RestClient::ResourceNotFound => error
+        @retries ||= 0
+        raise error if @retries > @max_retries
+
+        @retries += 1
+        retry
+      end
+      response
+    end
+
     def build(parser)
       require_relative "../parsers/#{parse_name(parser)}"
       klass = parse_class(parser)
@@ -53,18 +66,7 @@ module Parsers
   end
 
   def request(*args)
-    request_url, = args
-
-    begin
-      response = RestClient.get request_url
-    rescue RestClient::ResourceNotFound => error
-      @retries ||= 0
-      raise error if @retries > @max_retries
-
-      @retries += 1
-      retry
-    end
-
-    response
+    url, = args
+    Parsers.remote_request(url)
   end
 end
