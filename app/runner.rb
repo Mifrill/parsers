@@ -23,11 +23,26 @@ module Parsers
     end
 
     def run_threads
-      threads.shift.join until threads.empty?
+      until threads.empty?
+        begin
+          threads.shift.join
+        rescue ThreadError => e
+          print_exception(e, true)
+        rescue StandardError => e
+          print_exception(e, false)
+        end
+      end
     end
 
     def done?
       queue.empty?
+    end
+
+    private
+
+    def print_exception(exception, explicit)
+      puts "[#{explicit ? 'EXPLICIT' : 'INEXPLICIT'}] #{exception.class}: #{exception.message}"
+      puts exception.backtrace.join("\n")
     end
   end
 end

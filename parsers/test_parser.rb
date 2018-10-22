@@ -23,6 +23,7 @@ class TestParser
 
   def third
     puts __method__
+
     puts data
     -> { puts 'done' }.call
   end
