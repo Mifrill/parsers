@@ -53,6 +53,8 @@ module Parsers
     end
   end
 
+  private
+
   def task(args)
     task = Task.new args
     runner.add_task task
@@ -60,14 +62,12 @@ module Parsers
     task
   end
 
+  def runner
+    @runner ||= Runner.new
+  end
+
   def request(*args)
     url, = args
     Parsers.remote_request(url)
-  end
-
-  private
-
-  def runner
-    @runner ||= Runner.new
   end
 end
