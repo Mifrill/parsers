@@ -17,7 +17,7 @@ describe Parsers do
 
   context 'Parsers#build_parser' do
     it 'should remains initialized parser class' do
-      expect(parser.name).to eq("TestParser")
+      expect(parser.name).to eq('TestParser')
     end
   end
 

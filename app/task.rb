@@ -2,7 +2,7 @@ require_relative '../settings/capybara'
 
 module Parsers
   class Task
-    MODULES = [Capybara::DSL]
+    MODULES = [Capybara::DSL].freeze
 
     attr_reader :parser, :method, :url, :data
 

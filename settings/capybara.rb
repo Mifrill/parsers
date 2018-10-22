@@ -51,8 +51,8 @@ when :selenium
     )
   end
 
-  Capybara::Screenshot.register_driver(driver) do |_driver, path|
-    _driver.browser.save_screenshot(path)
+  Capybara::Screenshot.register_driver(driver) do |current_driver, path|
+    current_driver.browser.save_screenshot(path)
   end
 
   Capybara.save_path                    = 'tmp/report'
