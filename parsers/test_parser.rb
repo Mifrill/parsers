@@ -1,6 +1,8 @@
 require 'byebug'
 
 class TestParser
+  DRIVER = :selenium
+
   def initialize
     task(method: :first, data: 123)
   end

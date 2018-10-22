@@ -5,6 +5,8 @@ require 'pp'
 require 'rest-client'
 
 module Parsers
+  DRIVER = :mechanize
+
   class << self
     def remote_request(request_url)
       begin
@@ -23,6 +25,7 @@ module Parsers
       require_relative "../parsers/#{parse_name(parser)}"
       klass = parse_class(parser)
       klass.prepend self
+      klass.attr_reader :data
       klass
     end
 
@@ -60,6 +63,7 @@ module Parsers
     task = begin
       Parsers::Task.new(
         parser: self,
+        driver: self.class::DRIVER,
         method: args[:method],
         url:    args[:url],
         data:   args[:data]

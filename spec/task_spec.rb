@@ -5,7 +5,7 @@ describe Parsers::Task do
   let(:source) { 'http://strizhak-group.ru/' }
   let(:task) do
     Parsers::Task.new(
-      parser: parser, method: :test, url: source, data: 123
+      parser: parser, driver: :selenium, method: :test, url: source, data: {}
     )
   end
 
@@ -15,20 +15,8 @@ describe Parsers::Task do
     end
 
     VCR.use_cassette('source') do
-      # FIXME: order
-      it 'should make data reader for current parser' do
-        expect { parser.data }.to raise_error(NoMethodError)
-        task.execute
-        expect(parser.data).to eq(123)
-      end
-
       it 'should returns the result of parser method' do
         expect(task.execute).to eq(something: 'testing')
-      end
-
-      it 'should visit url which is specified' do
-        task.execute
-        expect(task.page.current_url).to eq(source)
       end
     end
   end

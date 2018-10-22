@@ -1,21 +1,15 @@
-require_relative '../settings/capybara'
+require_relative 'session'
 
 module Parsers
   class Task
-    MODULES = [Capybara::DSL].freeze
+    attr_reader :parser, :driver, :method, :url, :data
 
-    attr_reader :parser, :method, :url, :data
-
-    def initialize(parser:, method:, url:, data:)
+    def initialize(parser:, driver:, method:, url:, data:)
       @parser = parser
+      @driver = driver
       @method = method
       @url    = url
       @data   = data
-
-      MODULES.each do |m|
-        parser.class.include m
-        self.class.include m
-      end
     end
 
     def show
@@ -24,11 +18,13 @@ module Parsers
 
     def execute
       parser.instance_variable_set '@data', data
-      parser.class.attr_reader(:data)
 
-      visit(url)
+      session = Session.new(driver)
+      session.visit(url) if url
 
       parser.send method
+    ensure
+      session.destroy
     end
   end
 end
