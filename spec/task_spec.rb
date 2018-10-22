@@ -5,7 +5,7 @@ describe Parsers::Task do
   let(:source) { 'http://strizhak-group.ru/' }
   let(:task) do
     Parsers::Task.new(
-      parser: parser, method: :test, url: source, data: {}
+      parser: parser, method: :test, url: source, data: 123
     )
   end
 
@@ -22,6 +22,12 @@ describe Parsers::Task do
       it 'should visit url which is specified' do
         task.execute
         expect(task.page.current_url).to eq(source)
+      end
+
+      it 'should make data reader for current parser' do
+        expect { parser.data }.to raise_error(NoMethodError)
+        task.execute
+        expect(parser.data).to eq(123)
       end
     end
   end

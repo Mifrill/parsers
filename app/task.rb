@@ -23,6 +23,9 @@ module Parsers
     end
 
     def execute
+      parser.instance_variable_set "@data", data
+      parser.class.attr_reader(:data)
+
       visit(url)
 
       parser.send method
