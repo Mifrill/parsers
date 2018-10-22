@@ -38,31 +38,38 @@ module Parsers
   end
 
   def initialize
+    @runner = Parsers::Runner.new
+
     super
 
     mutex = Mutex.new
 
     loop do
       mutex.synchronize do
-        runner.execute_task
-        runner.run_threads
+        @runner.execute_task
+        @runner.run_threads
       end
 
-      break if runner.done?
+      break if @runner.done?
     end
   end
 
   private
 
   def task(args)
-    task = Parsers::Task.new args
-    runner.add_task task
+    task = begin
+      Parsers::Task.new(
+        parser: self,
+        method: args[:method],
+        url:    args[:url],
+        data:   args[:data]
+      )
+    end
+
+    @runner.add_task task
+
     task.show
     task
-  end
-
-  def runner
-    @runner ||= Parsers::Runner.new
   end
 
   def request(*args)
