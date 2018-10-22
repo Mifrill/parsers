@@ -26,7 +26,6 @@ module Parsers
       require_relative "../parsers/#{parse_name(parser)}"
       klass = parse_class(parser)
       klass.include self, Capybara::DSL
-      klass.attr_reader :config
       klass.new
     end
 
@@ -42,8 +41,6 @@ module Parsers
   end
 
   def start
-    runner.add_task first_task
-
     mutex = Mutex.new
 
     loop do
@@ -72,14 +69,5 @@ module Parsers
 
   def runner
     @runner ||= Runner.new
-  end
-
-  def first_task
-    Task.new(
-      parser: self,
-      method: config.dig(:start, :method),
-      url:    config.dig(:start, :url),
-      data:   {}
-    )
   end
 end

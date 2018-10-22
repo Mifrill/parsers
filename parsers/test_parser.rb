@@ -2,7 +2,7 @@ require 'byebug'
 
 class TestParser
   def initialize
-    @config = { start: { method: :first, url: 'http://google.com' } }
+    task(parser: self, method: :first, url: 'http://google.com/', data: {})
   end
 
   def first
