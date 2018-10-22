@@ -1,4 +1,3 @@
-require_relative '../settings/capybara'
 require_relative 'runner'
 require_relative 'task'
 
@@ -22,11 +21,11 @@ module Parsers
       response
     end
 
-    def build_parser(parser)
+    def build(parser)
       require_relative "../parsers/#{parse_name(parser)}"
       klass = parse_class(parser)
-      klass.include self, Capybara::DSL
-      klass.new
+      klass.prepend self
+      klass
     end
 
     private
@@ -40,7 +39,9 @@ module Parsers
     end
   end
 
-  def start
+  def initialize
+    super
+
     mutex = Mutex.new
 
     loop do
@@ -56,14 +57,14 @@ module Parsers
   private
 
   def task(args)
-    task = Task.new args
+    task = Parsers::Task.new args
     runner.add_task task
     task.show
     task
   end
 
   def runner
-    @runner ||= Runner.new
+    @runner ||= Parsers::Runner.new
   end
 
   def request(*args)

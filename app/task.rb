@@ -1,6 +1,8 @@
+require_relative '../settings/capybara'
+
 module Parsers
   class Task
-    include Capybara::DSL
+    MODULES = [Capybara::DSL]
 
     attr_reader :parser, :method, :url, :data
 
@@ -9,6 +11,11 @@ module Parsers
       @method = method
       @url    = url
       @data   = data
+
+      MODULES.each do |m|
+        parser.class.include m
+        self.class.include m
+      end
     end
 
     def show
