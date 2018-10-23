@@ -21,8 +21,11 @@ describe Parser::Fields do
       expect(fields.title).to eq('Truck')
     end
 
-    it 'should not can modify existed fields' do
-      expect { fields[:id] = 1 }.to raise_error(RuntimeError, "can't modify frozen OpenStruct")
+    it 'should raised an error for any modify fields command' do
+      expect do
+        fields[:id] = 1
+        fields[:category] = 'Equipment'
+      end.to raise_error(RuntimeError, "can't modify frozen OpenStruct")
     end
   end
 end
