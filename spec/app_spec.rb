@@ -18,8 +18,8 @@ describe Parser do
   end
 
   context 'Parser#initialize' do
-    # TODO: figured out how to check result of specific thread
     it 'should run current parser while tasks exists' do
+      expect(Thread).to receive(:new).exactly(1).times.and_return(Thread.new {})
       parser.new
     end
 
