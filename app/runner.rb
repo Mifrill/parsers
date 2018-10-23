@@ -1,4 +1,4 @@
-module Parsers
+module Parser
   class Runner
     attr_reader :queue, :threads
 

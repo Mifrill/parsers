@@ -1,6 +1,6 @@
 require_relative 'session'
 
-module Parsers
+module Parser
   class Task
     attr_reader :parser, :driver, :method, :url, :data
 

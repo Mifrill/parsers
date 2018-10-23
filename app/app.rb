@@ -1,9 +1,11 @@
 require_relative 'runner'
 require_relative 'task'
 
+require 'open-uri'
+require 'nokogiri'
 require 'pp'
 
-module Parsers
+module Parser
   DRIVER = :mechanize
 
   attr_reader :data, :page
@@ -28,7 +30,7 @@ module Parsers
   end
 
   def initialize
-    @runner = Parsers::Runner.new
+    @runner = Parser::Runner.new
     super
     @runner.start
   end
@@ -37,7 +39,7 @@ module Parsers
 
   def task(args)
     task = begin
-      Parsers::Task.new(
+      Parser::Task.new(
         parser: self,
         driver: args[:driver] || self.class::DRIVER,
         method: args[:method],

@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe Parsers::Task do
+describe Parser::Task do
   let(:parser) { Object.new }
   let(:source) { 'http://strizhak-group.ru/' }
   let(:task) do
-    Parsers::Task.new(
+    Parser::Task.new(
       parser: parser, driver: :selenium, method: :test, url: source, data: {}
     )
   end

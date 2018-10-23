@@ -19,10 +19,6 @@ RSpec.configure do |config|
   end
 end
 
-require 'images_by_url'
-require 'open-uri'
-require 'nokogiri'
-
 if ENV['ENV'] == 'test'
   puts 'CodeCoverage Enabled'
   require 'simplecov'

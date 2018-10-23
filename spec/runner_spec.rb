@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Parsers::Runner do
+describe Parser::Runner do
   let(:parser) { Object.new }
-  let(:runner) { Parsers::Runner.new }
+  let(:runner) { Parser::Runner.new }
   let(:source) { 'http://strizhak-group.ru/' }
 
   let(:thread) do

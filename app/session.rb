@@ -1,6 +1,6 @@
 require_relative '../settings/capybara'
 
-module Parsers
+module Parser
   class Session
     include Capybara::DSL
 
