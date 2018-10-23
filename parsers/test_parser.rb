@@ -4,7 +4,8 @@ class TestParser
   DRIVER = :selenium
 
   def initialize
-    task(method: :first, data: 123, url: '/')
+    fields { |f| f.id = 3 }
+    task(method: :first, data: 123)
   end
 
   def first

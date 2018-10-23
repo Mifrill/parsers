@@ -23,8 +23,9 @@ module Parser
       end
 
       {
-        data: data,
-        page: @session
+        fields: nil,
+        data:   data,
+        page:   @session
       }.each do |key, value|
         parser.instance_variable_set "@#{key}", value
       end

@@ -1,5 +1,6 @@
 require_relative 'runner'
 require_relative 'task'
+require_relative 'fields'
 
 require 'open-uri'
 require 'nokogiri'
@@ -52,5 +53,17 @@ module Parser
 
     task.show
     task
+  end
+
+  def fields
+    if block_given?
+      @fields = begin
+        Fields.new do |field|
+          yield field
+        end.fields
+      end
+    else
+      @fields
+    end
   end
 end

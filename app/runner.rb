@@ -28,6 +28,8 @@ module Parser
     end
 
     def add_task_execute
+      return PP.pp('No existed tasks') if queue.empty?
+
       threads << Thread.new do
         task = queue.pop
         puts "consumed: #{task}"

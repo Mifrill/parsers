@@ -34,16 +34,15 @@ describe Parser::Runner do
     end
 
     context 'Parsers::Runner#execute_task' do
-      before do
-        runner.add_task(task)
-      end
-
       it 'should add worker thread for last added thread' do
+        runner.add_task(task)
         runner.add_task_execute
 
         expect(runner.threads.count).to eq(2)
         expect(runner.queue.size).to    eq(0)
       end
+
+      it "should show message: 'No existed tasks' if no was add_task before"
     end
 
     context 'Parsers::Runner#run_threads' do
