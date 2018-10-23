@@ -39,7 +39,7 @@ describe Parsers::Runner do
       end
 
       it 'should add worker thread for last added thread' do
-        runner.execute_task
+        runner.add_task_execute
 
         expect(runner.threads.count).to eq(2)
         expect(runner.queue.size).to    eq(0)
@@ -49,7 +49,7 @@ describe Parsers::Runner do
     context 'Parsers::Runner#run_threads' do
       before do
         runner.add_task(task)
-        runner.execute_task
+        runner.add_task_execute
       end
 
       it 'should runner all available threads' do

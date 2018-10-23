@@ -14,7 +14,20 @@ module Parsers
       end
     end
 
-    def execute_task
+    def start
+      mutex = Mutex.new
+
+      loop do
+        mutex.synchronize do
+          add_task_execute
+          run_threads
+        end
+
+        break if done?
+      end
+    end
+
+    def add_task_execute
       threads << Thread.new do
         task = queue.pop
         puts "consumed: #{task}"

@@ -6,7 +6,7 @@ require 'rest-client'
 
 module Parsers
   DRIVER  = :mechanize
-  READERS = %i(data page)
+  READERS = %i[data page].freeze
 
   class << self
     def remote_request(request_url)
@@ -43,19 +43,8 @@ module Parsers
 
   def initialize
     @runner = Parsers::Runner.new
-
     super
-
-    mutex = Mutex.new
-
-    loop do
-      mutex.synchronize do
-        @runner.execute_task
-        @runner.run_threads
-      end
-
-      break if @runner.done?
-    end
+    @runner.start
   end
 
   private
