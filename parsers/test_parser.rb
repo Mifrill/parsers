@@ -4,7 +4,7 @@ class TestParser
   DRIVER = :selenium
 
   def initialize
-    task(method: :first, data: 123)
+    task(method: :first, data: 123, url: "/")
   end
 
   def first

@@ -4,15 +4,15 @@ require_relative 'task'
 require 'pp'
 
 module Parsers
-  DRIVER  = :mechanize
-  READERS = %i[data page].freeze
+  DRIVER = :mechanize
+
+  attr_reader :data, :page
 
   class << self
     def build(parser)
       require_relative "../parsers/#{parse_name(parser)}"
       klass = parse_class(parser)
       klass.prepend self
-      Parsers::READERS.each { |reader| klass.attr_reader reader }
       klass
     end
 
@@ -39,7 +39,7 @@ module Parsers
     task = begin
       Parsers::Task.new(
         parser: self,
-        driver: self.class::DRIVER,
+        driver: args[:driver] || self.class::DRIVER,
         method: args[:method],
         url:    args[:url],
         data:   args[:data]
