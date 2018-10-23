@@ -8,7 +8,6 @@ gem 'capybara-screenshot'
 gem 'chromedriver-helper'
 gem 'images_by_url'
 gem 'mechanize'
-gem 'rest-client'
 gem 'selenium-webdriver'
 
 group :dev, :test do
