@@ -6,7 +6,6 @@ gem 'capybara'
 gem 'capybara-mechanize'
 gem 'capybara-screenshot'
 gem 'chromedriver-helper'
-gem 'images_by_url'
 gem 'mechanize'
 gem 'selenium-webdriver'
 
