@@ -17,14 +17,21 @@ module Parsers
     end
 
     def execute
-      parser.instance_variable_set '@data', data
+      if url
+        @session = Session.new(driver)
+        @session.visit(url)
+      end
 
-      session = Session.new(driver)
-      session.visit(url) if url
+      {
+        data: data,
+        page: @session,
+      }.each do |key, value|
+        parser.instance_variable_set "@#{key}", value
+      end
 
       parser.send method
     ensure
-      session.destroy
+      @session&.destroy
     end
   end
 end
