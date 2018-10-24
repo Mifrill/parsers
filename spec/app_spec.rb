@@ -37,4 +37,18 @@ describe Parser do
       expect(parser_init.send(:fields).id).to eq(1)
     end
   end
+
+  context 'Parser#xpath' do
+    it 'should use xpath to find <body>' do
+      VCR.use_cassette('host') do
+        expect(Thread).to receive(:new).exactly(1).times.and_return(Thread.new {})
+        test_parser = parser.new
+        session     = Capybara::Session.new(:selenium)
+        session.visit('/')
+
+        allow(test_parser).to receive(:page).and_return(session)
+        expect(test_parser.xpath("//body")).to be_truthy
+      end
+    end
+  end
 end
