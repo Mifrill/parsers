@@ -2,13 +2,17 @@ require_relative 'runner'
 require_relative 'task'
 require_relative 'fields'
 
+require 'forwardable'
 require 'open-uri'
 require 'nokogiri'
 require 'pp'
 
 module Parser
+  extend Forwardable
+
   DRIVER = :mechanize
 
+  delegate xpath: :html
   attr_reader :data, :page
 
   class << self
@@ -53,6 +57,10 @@ module Parser
 
     task.show
     task
+  end
+
+  def html
+    Nokogiri::HTML.parse(page.html)
   end
 
   def fields
