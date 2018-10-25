@@ -34,7 +34,7 @@ describe Parser do
         field.id = 1
       end
 
-      expect(parser_init.send(:fields).id).to eq(1)
+      expect(parser_init.fields.id).to eq(1)
     end
   end
 

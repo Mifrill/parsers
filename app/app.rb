@@ -1,6 +1,7 @@
 require_relative 'runner'
 require_relative 'task'
 require_relative 'fields'
+require_relative 'storage'
 
 require 'forwardable'
 require 'open-uri'
@@ -40,6 +41,22 @@ module Parser
     @runner.start
   end
 
+  def fields
+    if block_given?
+      @fields = begin
+        Fields.new do |field|
+          yield field
+        end.fields
+      end
+    else
+      @fields
+    end
+  end
+
+  def store
+    @store ||= Parser::Store.new(self.class)
+  end
+
   private
 
   def task(args)
@@ -61,17 +78,5 @@ module Parser
 
   def html
     Nokogiri::HTML.parse(page.html)
-  end
-
-  def fields
-    if block_given?
-      @fields = begin
-        Fields.new do |field|
-          yield field
-        end.fields
-      end
-    else
-      @fields
-    end
   end
 end

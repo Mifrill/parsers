@@ -4,29 +4,30 @@ class TestParser
   DRIVER = :selenium
 
   def initialize
-    fields { |f| f.id = 3 }
     task(method: :first, data: 123)
   end
 
   def first
     puts __method__
 
-    2.times do
-      task(method: :second)
-    end
+    task(method: :second)
   end
 
   def second
     puts __method__
 
-    2.times do
-      task(method: :third, url: 'http://google.com/', data: 321)
+    %w(1, 2).each do |item|
+      task(method: :third, url: "http://google.com/#{item}", data: item)
     end
   end
 
   def third
     puts __method__
     puts data
-    -> { puts 'done' }.call
+
+    fields do |field|
+      field.id    = data
+      field.title = 'Truck'
+    end
   end
 end
