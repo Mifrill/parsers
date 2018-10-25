@@ -1,18 +1,20 @@
 require 'yaml/store'
 
 module Parser
-  class Store
+  class Storage
+    attr_reader :storage
+
     def initialize(parser)
-      @store = YAML::Store.new "tmp/parser_store_#{parser}.yml"
-      @mutex = Mutex.new
-      @index = 0
+      @storage = YAML::Store.new "tmp/parser_store_#{parser}.yml"
+      @mutex   = Mutex.new
+      @index   = 1
     end
 
     def <<(fields)
       @mutex.synchronize do
-        @store.transaction do
-          @store[@index.to_s] = fields.to_h
-          @store.commit
+        storage.transaction do
+          storage[@index.to_s] = fields.to_h
+          storage.commit
         end
 
         @index += 1

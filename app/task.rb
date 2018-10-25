@@ -31,7 +31,7 @@ module Parser
       end
 
       parser.send method
-      parser.store << parser.fields if parser.fields
+      parser.store! if parser.fields
     ensure
       @session&.destroy
     end

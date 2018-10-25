@@ -53,8 +53,9 @@ module Parser
     end
   end
 
-  def store
-    @store ||= Parser::Store.new(self.class)
+  def store!
+    @storage ||= Parser::Storage.new(self.class)
+    @storage << fields
   end
 
   private
