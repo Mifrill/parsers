@@ -8,6 +8,7 @@ gem 'capybara-screenshot'
 gem 'chromedriver-helper'
 gem 'mechanize'
 gem 'selenium-webdriver'
+gem 'thor'
 
 group :dev, :test do
   gem 'byebug'

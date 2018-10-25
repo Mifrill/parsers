@@ -193,6 +193,7 @@ DEPENDENCIES
   rubocop
   selenium-webdriver
   simplecov
+  thor
   vcr
   webmock
 
