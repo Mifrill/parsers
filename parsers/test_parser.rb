@@ -29,5 +29,7 @@ class TestParser
       field.id    = data
       field.title = 'Truck'
     end
+
+    yield fields
   end
 end

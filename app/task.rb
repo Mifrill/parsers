@@ -30,8 +30,9 @@ module Parser
         parser.instance_variable_set "@#{key}", value
       end
 
-      parser.send method
-      parser.store! if parser.fields
+      parser.send method do
+        parser.store!
+      end
     ensure
       @session&.destroy
     end
