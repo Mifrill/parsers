@@ -12,5 +12,15 @@
 [![Dependency Status](https://dependencyci.com/github/Mifrill/parsers/badge)](https://dependencyci.com/github/Mifrill/parsers)
 [![BCH compliance](https://bettercodehub.com/edge/badge/Mifrill/parsers?branch=master)](https://bettercodehub.com/)
 
-    DNS::Parser
-        time for one item: 01:30:05
+    Simple scalable thread-safe lib for web parsing.
+
+    Based:
+        Capybara; Nokogiri; RSpec; Selenium; Mechanize; 
+
+    Written on pure Ruby, using:
+        Threads/Queue/Mutex/OpenStruct/Store
+
+
+    Check: 
+        bin/start Test
+        bundle exec rspec
