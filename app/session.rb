@@ -7,8 +7,9 @@ module Parser
     attr_reader :driver, :session
 
     def initialize(driver)
-      @driver  = driver
-      @session = Capybara::Session.new(driver)
+      @driver   = driver
+      @settings = Parser::Settings.new(driver)
+      @session  = Capybara::Session.new(driver)
     end
 
     def visit(url)
@@ -16,7 +17,12 @@ module Parser
     end
 
     def destroy
-      session.driver.quit
+      case driver
+      when :selenium
+        session.driver.quit
+      when :mechanize
+        session.driver.browser.agent.shutdown
+      end
     end
   end
 end

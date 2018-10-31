@@ -1,8 +1,6 @@
 require 'byebug'
 
 class TestParser
-  DRIVER = :selenium
-
   def initialize
     task(method: :first, data: 123)
   end
@@ -17,7 +15,7 @@ class TestParser
     puts __method__
 
     %w(1, 2).each do |item|
-      task(method: :third, url: "http://google.com/#{item}", data: item)
+      task(method: :third, url: "https://www.google.com/webhp?newwindow=#{item}", data: item)
     end
   end
 

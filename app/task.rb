@@ -20,6 +20,7 @@ module Parser
       if url
         @session = Session.new(driver)
         @session.visit(url)
+        PP.pp "#{self.class}. Current driver - #{driver}"
       end
 
       {
