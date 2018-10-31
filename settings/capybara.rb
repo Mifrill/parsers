@@ -1,9 +1,10 @@
+Process::RLIMIT_NOFILE = 7 if Gem.win_platform?
+
 require 'rubygems'
 require 'capybara'
 require 'capybara/dsl'
 require 'capybara-screenshot'
 require 'selenium-webdriver'
-require 'mechanize'
 require 'capybara/mechanize'
 
 module Parser
