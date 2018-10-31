@@ -12,8 +12,6 @@
 [![Dependency Status](https://dependencyci.com/github/Mifrill/parsers/badge)](https://dependencyci.com/github/Mifrill/parsers)
 [![BCH compliance](https://bettercodehub.com/edge/badge/Mifrill/parsers?branch=master)](https://bettercodehub.com/)
 
-    Simple scalable thread-safe lib for web parsing.
-
     Based:
         Capybara; Nokogiri; RSpec; Selenium; Mechanize; 
 
