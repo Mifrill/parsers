@@ -47,7 +47,7 @@ describe Parser do
         session.visit('/')
 
         allow(test_parser).to receive(:page).and_return(session)
-        expect(test_parser.xpath("//body")).to be_truthy
+        expect(test_parser.xpath('//body')).to be_truthy
       end
     end
   end

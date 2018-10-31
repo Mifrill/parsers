@@ -18,15 +18,15 @@ module Parser
 
     def execute
       if url
-        @session = Session.new(driver)
+        @session = Parser::Session.new(driver)
         @session.visit(url)
         PP.pp "#{self.class}. Current driver - #{driver}"
       end
 
       {
         fields: nil,
-        data:   data,
-        page:   @session
+        data: data,
+        page: @session
       }.each do |key, value|
         parser.instance_variable_set "@#{key}", value
       end

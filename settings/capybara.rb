@@ -8,14 +8,15 @@ require 'capybara/mechanize'
 
 module Parser
   class Settings
-    def initialize(driver)
-      browser = ENV.fetch('BROWSER', 'chrome').to_sym
-      driver  = driver || ENV.fetch('DRIVER', 'selenium').to_sym
+    def initialize(
+      driver = ENV.fetch('DRIVER', 'selenium').to_sym,
+      browser: ENV.fetch('BROWSER', 'chrome').to_sym
+    )
 
       case driver
       when :mechanize
         Capybara.register_driver driver do |_app|
-          driver = Capybara::Mechanize::Driver.new("app")
+          driver = Capybara::Mechanize::Driver.new('app')
           driver.configure do |agent|
             agent.log = Logger.new 'mech.log'
             agent.user_agent_alias = 'Mac Safari'
@@ -50,7 +51,7 @@ module Parser
 
         Capybara.register_driver driver do |app|
           Capybara::Selenium::Driver.new(
-              app, browser: browser, desired_capabilities: capabilities
+            app, browser: browser, desired_capabilities: capabilities
           )
         end
 

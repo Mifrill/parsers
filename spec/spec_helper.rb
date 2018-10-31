@@ -38,5 +38,5 @@ end
 
 require_relative '../app/app'
 
-driver  = ENV.fetch('DRIVER', 'selenium').to_sym
+driver = ENV.fetch('DRIVER', 'selenium').to_sym
 Parser::Settings.new(driver)

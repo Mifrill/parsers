@@ -14,7 +14,7 @@ class TestParser
   def second
     puts __method__
 
-    %w(1, 2).each do |item|
+    %w[1 2].each do |item|
       task(method: :third, url: "https://www.google.com/webhp?newwindow=#{item}", data: item)
     end
   end

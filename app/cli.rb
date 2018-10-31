@@ -1,10 +1,10 @@
-require_relative "../app/app"
+require_relative '../app/app'
 
-require "thor"
+require 'thor'
 
 module Parser
   class CLI < Thor
-    desc "start PARSER", "build and run parser by class name"
+    desc 'start PARSER', 'build and run parser by class name'
     def start(parser)
       klass = Parser.build(parser)
       klass.new
