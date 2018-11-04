@@ -1,3 +1,13 @@
+# frozen_string_literal: true
+
+unless Gem.win_platform?
+  style_check = `bundle exec rubocop`
+  unless style_check[/files inspected, no offenses detected/]
+    print style_check
+    abort('Style offences detected')
+  end
+end
+
 require 'coveralls'
 Coveralls.wear!
 

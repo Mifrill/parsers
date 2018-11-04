@@ -1,8 +1,9 @@
 inherit_from: .rubocop_todo.yml
 
 AllCops:
-  Excludes:
+  Exclude:
     - db/**
+    - vendor/**/* # CI
 
 Documentation:
   Enabled: false
