@@ -3,6 +3,7 @@ dist: trusty
 notifications:
   email: false
 install:
+# Run it once if main Dockerfile is changed
 # - docker build -t parsers .
 # - docker save parsers | gzip > docker/parsers.tar.gz
 cache:
