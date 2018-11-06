@@ -2,18 +2,13 @@ sudo: required
 dist: trusty
 notifications:
   email: false
-before_cache:
-# Save tagged docker images
-- >
-  mkdir -p $HOME/docker && docker images -a --filter='dangling=false' --format '{{.Repository}}:{{.Tag}} {{.ID}}'
-  | xargs -n 2 -t sh -c 'test -e $HOME/docker/$1.tar.gz || docker save $0 | gzip -2 > $HOME/docker/$1.tar.gz'
-before_install:
-# Load cached docker images
-- if [[ -d $HOME/docker ]]; then ls $HOME/docker/*.tar.gz | xargs -I {file} sh -c "zcat {file} | docker load"; fi
+install:
+- docker build -t parsers .
+- docker save parsers | gzip > docker/parsers.tar.gz
 cache:
   bundler: true
   directories:
-  - $HOME/docker
+  - docker
 language: ruby
 rvm:
   - 2.5.1
@@ -54,9 +49,11 @@ before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
+
+  # Docker cache
+  - gzip -dc docker/parsers.tar.gz | docker load
 script:
   - ENV=test bundle exec rspec
-  - docker build -t parsers .
   - docker run -i -t --env BROWSER='chrome' parsers /bin/sh -c "rbenv exec bundle exec rspec"
 after_success:
 - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
