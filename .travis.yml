@@ -2,8 +2,14 @@ sudo: required
 dist: trusty
 notifications:
   email: false
+install:
+# Run it once if main Dockerfile is changed
+# - docker build -t parsers .
+# - docker save parsers | gzip > docker/parsers.tar.gz
 cache:
   bundler: true
+  directories:
+  - docker
 language: ruby
 rvm:
   - 2.5.1
@@ -44,9 +50,12 @@ before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
+
+  # Docker cache
+  - gzip -dc docker/parsers.tar.gz | docker load
 script:
   - ENV=test bundle exec rspec
-  - docker build -t parsers .
-  - docker run -i -t --env BROWSER='chrome' parsers /bin/sh -c "rbenv exec bundle exec rspec"
+  - docker build -f Dockerfile.dev -t parsers_dev .
+  - docker run -it --rm --env BROWSER='chrome' -v `pwd`:/parsers parsers_dev /bin/sh -c "rbenv exec bundle exec rspec"
 after_success:
 - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
