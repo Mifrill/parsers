@@ -1,0 +1,10 @@
+# docker build -f Dockerfile.dev -t parsers_dev .
+# docker run -it --rm -v `pwd`:/parsers parsers_dev
+
+FROM parsers
+
+WORKDIR /root/parsers
+
+ADD . /root/parsers
+
+RUN rbenv exec bundle install
