@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Parser::Runner do
   let(:parser) { Object.new }
   let(:runner) { Parser::Runner.new }
-  let(:source) { 'http://strizhak-group.ru/' }
+  let(:source) { 'https://google.com/' }
 
   let(:thread) do
     Class.new do
@@ -22,7 +22,7 @@ describe Parser::Runner do
     allow(parser).to receive(:test).and_return(something: 'testing')
   end
 
-  VCR.use_cassette('source') do
+  VCR.use_cassette('google') do
     context 'Parsers::Runner#add_task' do
       it 'should just add current task into thread pool' do
         runner.add_task(task)

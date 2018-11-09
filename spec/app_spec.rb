@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Parser do
-  let(:source) { 'http://strizhak-group.ru' }
+  let(:source) { 'https://google.com/' }
   let(:parser) { Parser.build('Test') }
 
   let(:parser_init) do
@@ -40,7 +40,7 @@ describe Parser do
 
   context 'Parser#xpath' do
     it 'should use xpath to find <body>' do
-      VCR.use_cassette('host') do
+      VCR.use_cassette('google') do
         expect(Thread).to receive(:new).exactly(1).times.and_return(Thread.new {})
         test_parser = parser.new
         session     = Capybara::Session.new(:selenium)

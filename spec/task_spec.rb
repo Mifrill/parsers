@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Parser::Task do
   let(:parser) { Object.new }
-  let(:source) { 'http://strizhak-group.ru/' }
+  let(:source) { 'https://google.com/' }
   let(:task) do
     Parser::Task.new(
       parser: parser, driver: :selenium, method: :test, url: source, data: {}
@@ -14,7 +14,7 @@ describe Parser::Task do
       allow(parser).to receive(:test).and_return(something: 'testing')
     end
 
-    VCR.use_cassette('source') do
+    VCR.use_cassette('google') do
       it 'should returns the result of parser method' do
         expect(task.execute).to eq(something: 'testing')
       end
