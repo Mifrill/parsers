@@ -17,16 +17,19 @@ module Parser
     end
 
     def execute
-      if url
-        @session = Parser::Session.new(driver)
-        @session.visit(url)
-        PP.pp "#{self.class}. Current driver - #{driver}"
+      session = begin
+        if url
+          session = Parser::Session.new(driver)
+          session.visit(url)
+          PP.pp "#{self.class}. Current driver - #{driver}"
+          session
+        end
       end
 
       {
         fields: nil,
         data: data,
-        page: @session
+        page: session
       }.each do |key, value|
         parser.instance_variable_set "@#{key}", value
       end
@@ -35,7 +38,7 @@ module Parser
         parser.store!
       end
     ensure
-      @session&.destroy
+      session&.destroy
     end
   end
 end
