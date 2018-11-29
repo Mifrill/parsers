@@ -58,9 +58,9 @@ describe Parser::Runner do
       end
     end
 
-    context 'Parsers::Runner#done?' do
+    context 'Parsers::Runner#empty_pool?' do
       it 'should return true if no exist available threads' do
-        expect(runner.done?).to be true
+        expect(runner.send(:empty_queue?)).to be true
       end
     end
   end

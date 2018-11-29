@@ -23,12 +23,12 @@ module Parser
           run_threads
         end
 
-        break if done?
+        break if empty_queue?
       end
     end
 
     def add_task_execute
-      return PP.pp('No existed tasks') if queue.empty?
+      return PP.pp('No existed tasks') if empty_queue?
 
       threads << Thread.new do
         task = queue.pop
@@ -49,11 +49,11 @@ module Parser
       end
     end
 
-    def done?
+    private
+
+    def empty_queue?
       queue.empty?
     end
-
-    private
 
     def print_exception(exception, explicit)
       puts "[#{explicit ? 'EXPLICIT' : 'INEXPLICIT'}] #{exception.class}: #{exception.message}"
