@@ -13,7 +13,7 @@ module Parser
 
   DRIVER = :mechanize
 
-  delegate xpath: :html
+  delegate %i(xpath at_xpath) => :html
   attr_reader :data, :page
 
   class << self
