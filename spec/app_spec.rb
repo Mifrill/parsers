@@ -38,7 +38,7 @@ describe Parser do
     end
   end
 
-  context 'Parser#xpath' do
+  context 'Parser#(xpath/at_xpath)' do
     it 'should use xpath to find <body>' do
       VCR.use_cassette('google') do
         expect(Thread).to receive(:new).exactly(1).times.and_return(Thread.new {})
@@ -47,7 +47,7 @@ describe Parser do
         session.visit('/')
 
         allow(test_parser).to receive(:page).and_return(session)
-        expect(test_parser.xpath('//body')).not_to be_empty
+        expect(test_parser.at_xpath('//body')).to be_kind_of(Nokogiri::XML::Element)
       end
     end
 
@@ -61,7 +61,7 @@ describe Parser do
           session.visit('/')
 
           allow(test_parser).to receive(:page).and_return(session)
-          expect(test_parser.xpath('//body')).not_to be_empty
+          expect(test_parser.xpath('//body')).to be_an(Nokogiri::XML::NodeSet)
         end
       end
     end
