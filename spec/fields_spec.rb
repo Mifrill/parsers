@@ -6,11 +6,9 @@ describe Parser::Fields do
       id    = 1
       title = 'Truck'
 
-      fields = begin
-        Parser::Fields.new do |field|
-          field.id    = id
-          field.title = title
-        end
+      Parser::Fields.new do |field|
+        field.id    = id
+        field.title = title
       end.fields
     end
 

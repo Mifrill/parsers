@@ -17,15 +17,6 @@ module Parser
     end
 
     def execute
-      session = begin
-        if url
-          session = Parser::Session.new(driver)
-          session.visit(url)
-          PP.pp "#{self.class}. Current driver - #{driver}"
-          session
-        end
-      end
-
       {
         fields: nil,
         data: data,
@@ -39,6 +30,19 @@ module Parser
       end
     ensure
       session&.destroy
+    end
+
+    private
+
+    def session
+      @session ||= begin
+        if url
+          session = Parser::Session.new(driver)
+          session.visit(url)
+          PP.pp "#{self.class}. Current driver - #{driver}"
+          session
+        end
+      end
     end
   end
 end

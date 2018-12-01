@@ -2,7 +2,7 @@
 
 unless Gem.win_platform?
   style_check = `bundle exec rubocop`
-  if !style_check =~ /files inspected, no offenses detected/ || !style_check =~ /Lint\/Debugger/
+  if !style_check =~ /\bno offenses detected\b/ || !style_check =~ /\bLint\/Debugger\b/
     print style_check
     abort('Style offences detected')
   end

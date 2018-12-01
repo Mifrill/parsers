@@ -16,15 +16,6 @@ Layout/AlignHash:
   Exclude:
     - 'app/app.rb'
 
-# Offense count: 1
-Lint/UselessAssignment:
-  Exclude:
-    - 'spec/fields_spec.rb'
-
-# Offense count: 2
-Metrics/AbcSize:
-  Max: 30
-
 # Offense count: 4
 # Configuration parameters: CountComments, ExcludedMethods.
 # ExcludedMethods: refine
