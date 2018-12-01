@@ -11,6 +11,7 @@
 [![Code Triagers Badge](https://www.codetriage.com/mifrill/parsers/badges/users.svg)](https://www.codetriage.com/mifrill/parsers)
 [![Dependency Status](https://dependencyci.com/github/Mifrill/parsers/badge)](https://dependencyci.com/github/Mifrill/parsers)
 [![BCH compliance](https://bettercodehub.com/edge/badge/Mifrill/parsers?branch=master)](https://bettercodehub.com/)
+[![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 
     Based:
         Capybara; Nokogiri; RSpec; Selenium; Mechanize; 
