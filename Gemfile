@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 
 unless Gem.win_platform?
-  ruby File.read(File.join(File.dirname(__FILE__), '.ruby-version'))[/(\d\.){2}\d/]
+  ruby_version_file_path = File.join(File.dirname(__FILE__), '.ruby-version')
+  ruby File.read(ruby_version_file_path)[/(\d\.){2}\d/]
 end
 
 gem 'capybara'
