@@ -23,7 +23,7 @@ describe Parser do
       parser.new
     end
 
-    it 'should bot to raised an error if the initialize method is no contains task' do
+    it 'should not to raised an error for blank method' do
       expect { parser_init }.not_to raise_error(RuntimeError)
     end
   end

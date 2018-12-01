@@ -63,11 +63,13 @@ module Parser
   def task(args)
     task = begin
       Parser::Task.new(
+        # rubocop:disable Layout/AlignHash
         parser: self,
         driver: args[:driver] || self.class::DRIVER,
         method: args[:method],
         url:    args[:url],
         data:   args[:data]
+        # rubocop:enable Layout/AlignHash
       )
     end
     @runner.add_task task

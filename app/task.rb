@@ -10,6 +10,7 @@ module Parser
       @method = method
       @url    = url
       @data   = data
+
       show
     end
 
@@ -19,6 +20,7 @@ module Parser
 
     def execute
       set_instance_variables!
+
       parser.send method do
         parser.store!
       end
@@ -40,8 +42,13 @@ module Parser
     end
 
     def set_instance_variables!
-      { fields: nil, data: data, page: session }
-        .each do |key, value|
+      {
+        # rubocop:disable Layout/AlignHash
+        fields: nil,
+        data:   data,
+        page:   session
+        # rubocop:enable Layout/AlignHash
+      }.each do |key, value|
         parser.instance_variable_set "@#{key}", value
       end
     end
