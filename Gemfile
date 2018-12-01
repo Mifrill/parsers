@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 
-ruby File.read(File.join(File.dirname(__FILE__), '.ruby-version'))[/(\d\.){2}\d/]
+unless Gem.win_platform?
+  ruby_version_file_path = File.join(File.dirname(__FILE__), '.ruby-version')
+  ruby File.read(ruby_version_file_path)[/(\d\.){2}\d/]
+end
 
 gem 'capybara'
 gem 'capybara-mechanize'
