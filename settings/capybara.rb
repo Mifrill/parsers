@@ -12,6 +12,18 @@ module Parser
       browser: ENV.fetch('BROWSER', 'chrome').to_sym
     )
 
+      build_settings(driver, browser)
+
+      Capybara.default_driver        = driver
+      Capybara.default_selector      = :xpath
+      Capybara.run_server            = false
+      Capybara.default_max_wait_time = 10
+      Capybara.app_host              = 'https://www.google.com'
+    end
+
+    private
+
+    def build_settings(driver, browser)
       case driver
       when :mechanize
         Capybara.register_driver driver do |_app|
@@ -61,16 +73,10 @@ module Parser
         Capybara.save_path                    = 'tmp/report'
         Capybara::Screenshot.append_timestamp = true
         Capybara::Screenshot.prune_strategy   = :keep_last_run
-        Capybara.default_selector             = :xpath
         Capybara.javascript_driver            = driver
-        Capybara.default_max_wait_time        = 10
       else
         raise 'Unknown driver'
       end
-
-      Capybara.run_server     = false
-      Capybara.default_driver = driver
-      Capybara.app_host       = 'https://www.google.com'
     end
   end
 end
