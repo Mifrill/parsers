@@ -12,8 +12,8 @@ module Parser
       @session  = Capybara::Session.new(driver)
     end
 
-    def visit(url)
-      session.visit(url)
+    def call
+      session
     end
 
     def destroy
