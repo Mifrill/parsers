@@ -10,6 +10,7 @@ module Parser
       @method = method
       @url    = url
       @data   = data
+      show
     end
 
     def show
@@ -17,14 +18,7 @@ module Parser
     end
 
     def execute
-      {
-        fields: nil,
-        data: data,
-        page: session
-      }.each do |key, value|
-        parser.instance_variable_set "@#{key}", value
-      end
-
+      set_instance_variables!
       parser.send method do
         parser.store!
       end
@@ -42,6 +36,13 @@ module Parser
           PP.pp "#{self.class}. Current driver - #{driver}"
           session
         end
+      end
+    end
+
+    def set_instance_variables!
+      { fields: nil, data: data, page: session }
+        .each do |key, value|
+        parser.instance_variable_set "@#{key}", value
       end
     end
   end

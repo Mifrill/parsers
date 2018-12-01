@@ -70,11 +70,7 @@ module Parser
         data:   args[:data]
       )
     end
-
     @runner.add_task task
-
-    task.show
-    task
   end
 
   def html
