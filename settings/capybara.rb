@@ -61,9 +61,9 @@ module Parser
         Capybara.save_path                    = 'tmp/report'
         Capybara::Screenshot.append_timestamp = true
         Capybara::Screenshot.prune_strategy   = :keep_last_run
-
-        Capybara.javascript_driver     = driver
-        Capybara.default_max_wait_time = 10
+        Capybara.default_selector             = :xpath
+        Capybara.javascript_driver            = driver
+        Capybara.default_max_wait_time        = 10
       else
         raise 'Unknown driver'
       end
