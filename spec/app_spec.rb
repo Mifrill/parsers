@@ -47,7 +47,22 @@ describe Parser do
         session.visit('/')
 
         allow(test_parser).to receive(:page).and_return(session)
-        expect(test_parser.xpath('//body')).to be_truthy
+        expect(test_parser.xpath('//body')).not_to be_empty
+      end
+    end
+
+    unless Gem.win_platform?
+      it 'mechanize driver for non win platform' do
+        VCR.use_cassette('google_mechanize') do
+          expect(Thread).to receive(:new).exactly(1).times.and_return(Thread.new {})
+          Parser::Settings.new(:mechanize)
+          test_parser = parser.new
+          session     = Capybara::Session.new(:mechanize)
+          session.visit('/')
+
+          allow(test_parser).to receive(:page).and_return(session)
+          expect(test_parser.xpath('//body')).not_to be_empty
+        end
       end
     end
   end

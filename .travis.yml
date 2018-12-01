@@ -58,4 +58,4 @@ script:
   - docker build -f Dockerfile.dev -t parsers_dev .
   - docker run -it --rm --env BROWSER='chrome' -v `pwd`:/parsers parsers_dev /bin/sh -c "rbenv exec bundle exec rspec"
 after_success:
-- ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
