@@ -12,10 +12,6 @@ module Parser
       @session  = Capybara::Session.new(driver)
     end
 
-    def call
-      session
-    end
-
     def destroy
       case driver
       when :selenium
