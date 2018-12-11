@@ -26,10 +26,8 @@ jobs:
           command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs 4 --retry 3
 
       # Install dependencies.
-      - run: sudo apt-get install software-properties-common
-      - run: lsb_release --a
       - run: sudo apt-get update
-      - run: sudo apt-get install -y unzip xvfb libxi6 libgconf-2-4
+      - run: sudo apt-get install -y unzip xvfb libxi6 libgconf-2-4 software-properties-common
 
       # Install Chrome for Debian.
       - run: echo "deb http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee -a /etc/apt/sources.list
