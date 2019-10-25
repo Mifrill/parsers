@@ -55,7 +55,7 @@ RUN rbenv install $ruby
 RUN rbenv global $ruby
 RUN rbenv rehash
 RUN echo "gem: --no-ri --no-rdoc" > /root/.gemrc && chmod 644 /root/.gemrc
-RUN rbenv exec gem install bundler --conservative
+RUN rbenv exec gem install bundler -v '1.17.3' --conservative
 RUN rbenv exec bundle config git.allow_insecure true
 
 # Install Google Chrome
