@@ -18,7 +18,7 @@ GEM
     capybara-mechanize (1.11.0)
       capybara (>= 2.4.4, < 4)
       mechanize (~> 2.7.0)
-    capybara-screenshot (1.0.22)
+    capybara-screenshot (1.0.23)
       capybara (>= 1.0, < 4)
       launchy
     childprocess (3.0.0)
