@@ -19,8 +19,6 @@ jobs:
       - type: cache-restore
         key: rails-demo-{{ checksum "Gemfile.lock" }}
 
-      - run: sudo apt-get update
-
       # Bundle install dependencies
       - run:
           name: Install dependencies
