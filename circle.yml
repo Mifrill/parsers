@@ -19,7 +19,8 @@ jobs:
       - type: cache-restore
         key: rails-demo-{{ checksum "Gemfile.lock" }}
 
-      - run: sudo apt install postgresql-client
+      - run: sudo apt-get update
+
       # Bundle install dependencies
       - run:
           name: Install dependencies
@@ -28,6 +29,8 @@ jobs:
       # Install dependencies.
       - run: sudo apt-get update
       - run: sudo apt-get install -y unzip xvfb libxi6 libgconf-2-4 software-properties-common
+
+      - run: sudo apt install postgresql-client
 
       # Install Chrome for Debian.
       - run: echo "deb http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee -a /etc/apt/sources.list
