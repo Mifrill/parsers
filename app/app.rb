@@ -11,7 +11,7 @@ require 'pp'
 module Parser
   extend Forwardable
 
-  DRIVER = :mechanize
+  DRIVER = :cuprite
 
   delegate %i[xpath at_xpath] => :html
   attr_reader :data, :page, :url

@@ -32,9 +32,21 @@ module Parser
       when :selenium
         register_selenium_driver!
         build_screenshot_options!
+      when :cuprite
+        register_cuprite_driver!
       else
         raise 'Unknown driver'
       end
+    end
+
+    def register_cuprite_driver!
+      require 'capybara/cuprite'
+
+      Capybara.register_driver driver do |app|
+        Capybara::Cuprite::Driver.new(app, window_size: [1200, 800])
+      end
+
+      Capybara.javascript_driver = driver
     end
 
     def register_mechanize_driver!
