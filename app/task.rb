@@ -47,7 +47,7 @@ module Parser
         fields: nil,
         data:   data,
         page:   session,
-        url:    Addressable::URI.parse(url),
+        url:    Addressable::URI.parse(url)
         # rubocop:enable Layout/AlignHash
       }.each do |key, value|
         parser.instance_variable_set "@#{key}", value
