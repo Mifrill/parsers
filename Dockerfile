@@ -1,7 +1,7 @@
 # docker build -t parsers .
 # docker run -it --rm -v `pwd`:/root/parsers parsers
 
-FROM ubuntu:latest
+FROM ubuntu:16.04
 
 LABEL maintainer='alexei.mifrill.strizhak@gmail.com'
 

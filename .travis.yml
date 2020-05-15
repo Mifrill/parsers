@@ -20,6 +20,7 @@ services:
   - docker
 before_script:
   - gem update --system
+  - bundle update --bundler
   - bundle install
 
   # Install dependencies.
