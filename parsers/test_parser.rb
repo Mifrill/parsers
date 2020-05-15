@@ -24,7 +24,7 @@ class TestParser
     puts data
 
     fields do |field|
-      field.id    = data
+      field.id = data
       field.title = 'Truck'
     end
 
