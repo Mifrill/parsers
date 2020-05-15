@@ -39,12 +39,16 @@ describe Parser do
   end
 
   context 'Driver settings' do
-    [:mechanize, :selenium, :cuprite].each do |driver|
-      it 'should use xpath to find <body>' do
+    subject(:settings_applied) do
+      lambda do |driver|
         Parser::Settings.new(driver)
         expect(Capybara.drivers.include?(driver)).to eq(true)
       end
     end
+
+    it { settings_applied[:mechanize] } unless Gem.win_platform?
+    it { settings_applied[:selenium] }
+    it { settings_applied[:cuprite] }
   end
 
   context 'Parser#(xpath/at_xpath)' do
