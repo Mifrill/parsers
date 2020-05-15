@@ -11,7 +11,7 @@ require 'pp'
 module Parser
   extend Forwardable
 
-  DRIVER = :mechanize
+  DRIVER = :cuprite
 
   delegate %i[xpath at_xpath] => :html
   attr_reader :data, :page, :url
@@ -43,11 +43,9 @@ module Parser
 
   def fields
     if block_given?
-      @fields = begin
-        Fields.new do |field|
-          yield field
-        end.fields
-      end
+      @fields = Fields.new do |field|
+        yield field
+      end.fields
     else
       @fields
     end
@@ -61,17 +59,13 @@ module Parser
   private
 
   def task(args)
-    task = begin
-      Parser::Task.new(
-        # rubocop:disable Layout/AlignHash
-        parser: self,
-        driver: args[:driver] || self.class::DRIVER,
-        method: args[:method],
-        url:    args[:url],
-        data:   args[:data]
-        # rubocop:enable Layout/AlignHash
-      )
-    end
+    task = Parser::Task.new(
+      parser: self,
+      driver: args[:driver] || self.class::DRIVER,
+      method: args[:method],
+      url: args[:url],
+      data: args[:data]
+    )
     @runner.add_task task
   end
 

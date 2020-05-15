@@ -6,13 +6,15 @@ describe Parser::Runner do
 
   let(:thread) do
     Class.new do
-      def join; end
+      def join
+      end
     end.new
   end
 
   let(:task) do
     Class.new do
-      def execute; end
+      def execute
+      end
     end.new
   end
 
@@ -37,7 +39,7 @@ describe Parser::Runner do
       runner.add_task_execute
 
       expect(runner.threads.count).to eq(2)
-      expect(runner.queue.size).to    eq(0)
+      expect(runner.queue.size).to eq(0)
     end
 
     it "should show message: 'No existed tasks' if no was add_task before"

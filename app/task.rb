@@ -8,8 +8,8 @@ module Parser
       @parser = parser
       @driver = driver
       @method = method
-      @url    = url
-      @data   = data
+      @url = url
+      @data = data
 
       show
     end
@@ -31,24 +31,21 @@ module Parser
     private
 
     def session
-      @session ||= begin
+      @session ||=
         if url
           session = Parser::Session.new(driver)
           session.visit(url)
           PP.pp "#{self.class}. Current driver - #{driver}"
           session
         end
-      end
     end
 
     def set_instance_variables!
       {
-        # rubocop:disable Layout/AlignHash
         fields: nil,
-        data:   data,
-        page:   session,
-        url:    Addressable::URI.parse(url),
-        # rubocop:enable Layout/AlignHash
+        data: data,
+        page: session,
+        url: Addressable::URI.parse(url)
       }.each do |key, value|
         parser.instance_variable_set "@#{key}", value
       end

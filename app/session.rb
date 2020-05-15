@@ -7,9 +7,9 @@ module Parser
     attr_reader :driver, :session
 
     def initialize(driver)
-      @driver   = driver
+      @driver = driver
       @settings = Parser::Settings.new(driver)
-      @session  = Capybara::Session.new(driver)
+      @session = Capybara::Session.new(driver)
     end
 
     def destroy
