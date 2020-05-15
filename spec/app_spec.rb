@@ -38,6 +38,15 @@ describe Parser do
     end
   end
 
+  context 'Driver settings' do
+    [:mechanize, :selenium, :cuprite].each do |driver|
+      it 'should use xpath to find <body>' do
+        Parser::Settings.new(driver)
+        expect(Capybara.drivers.include?(driver)).to eq(true)
+      end
+    end
+  end
+
   context 'Parser#(xpath/at_xpath)' do
     it 'should use xpath to find <body>' do
       VCR.use_cassette('google') do
