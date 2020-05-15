@@ -6,8 +6,8 @@ module Parser
 
     def initialize(parser)
       @storage = YAML::Store.new "tmp/parser_store_#{parser}.yml"
-      @mutex   = Mutex.new
-      @index   = 1
+      @mutex = Mutex.new
+      @index = 1
     end
 
     def <<(fields)

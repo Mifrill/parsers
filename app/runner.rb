@@ -3,7 +3,7 @@ module Parser
     attr_reader :queue, :threads
 
     def initialize
-      @queue   = Queue.new
+      @queue = Queue.new
       @threads = []
     end
 
