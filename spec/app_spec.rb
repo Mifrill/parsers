@@ -7,7 +7,9 @@ describe Parser do
   let(:parser_init) do
     Class.new do
       prepend Parser
-      def initialize; end
+
+      def initialize
+      end
     end.new
   end
 
@@ -38,12 +40,25 @@ describe Parser do
     end
   end
 
+  context 'Driver settings' do
+    subject(:settings_applied) do
+      lambda do |driver|
+        Parser::Settings.new(driver)
+        expect(Capybara.drivers.include?(driver)).to eq(true)
+      end
+    end
+
+    it { settings_applied[:mechanize] } unless Gem.win_platform?
+    it { settings_applied[:selenium] }
+    it { settings_applied[:cuprite] }
+  end
+
   context 'Parser#(xpath/at_xpath)' do
     it 'should use xpath to find <body>' do
       VCR.use_cassette('google') do
         expect(Thread).to receive(:new).exactly(1).times.and_return(Thread.new {})
         test_parser = parser.new
-        session     = Capybara::Session.new(:selenium)
+        session = Capybara::Session.new(:selenium)
         session.visit('/')
 
         allow(test_parser).to receive(:page).and_return(session)
@@ -57,7 +72,7 @@ describe Parser do
           expect(Thread).to receive(:new).exactly(1).times.and_return(Thread.new {})
           Parser::Settings.new(:mechanize)
           test_parser = parser.new
-          session     = Capybara::Session.new(:mechanize)
+          session = Capybara::Session.new(:mechanize)
           session.visit('/')
 
           allow(test_parser).to receive(:page).and_return(session)
