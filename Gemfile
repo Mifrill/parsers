@@ -9,10 +9,10 @@ gem 'capybara'
 gem 'capybara-mechanize'
 gem 'capybara-screenshot'
 gem 'chromedriver-helper'
+gem 'cuprite'
 gem 'mechanize'
 gem 'selenium-webdriver'
 gem 'thor'
-gem 'cuprite'
 
 group :dev, :test do
   gem 'byebug'
