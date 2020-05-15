@@ -24,7 +24,9 @@ before_script:
   - bundle install
 
   # Install dependencies.
+  - sudo apt-get clean
   - sudo apt-get update
+  - sudo apt-get install --reinstall dpkg
   - sudo apt-get install -y openjdk-8-jre-headless xvfb libxi6 libgconf-2-4
 
   # Install Chrome.
