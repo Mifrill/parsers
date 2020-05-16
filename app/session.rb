@@ -14,7 +14,7 @@ module Parser
 
     def destroy
       case driver
-      when :selenium
+      when :cuprite, :selenium
         session.driver.quit
       when :mechanize
         session.driver.browser.agent.shutdown
