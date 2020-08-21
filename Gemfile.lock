@@ -26,7 +26,7 @@ GEM
       archive-zip (~> 0.10)
       nokogiri (~> 1.8)
     cliver (0.3.2)
-    codecov (0.2.5)
+    codecov (0.2.6)
       colorize
       json
       simplecov
