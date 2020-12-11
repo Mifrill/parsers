@@ -29,7 +29,7 @@ module Parser
     end
 
     def add_task_execute
-      return PP.pp('No existed tasks') if empty_queue? && debug
+      return (PP.pp('No existed tasks') if debug) if empty_queue?
 
       threads << Thread.new do
         task = queue.pop
