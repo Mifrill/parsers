@@ -9,6 +9,10 @@ describe Parser::Task do
     )
   end
 
+  before { Object::DEBUG = true }
+
+  after { Object.send(:remove_const, :DEBUG) }
+
   context 'Parsers::Task#execute' do
     before do
       allow(parser).to receive(:test).and_return(something: 'testing')
@@ -22,9 +26,7 @@ describe Parser::Task do
   end
 
   it 'Parsers::Task#show: displays the data of current task' do
-    Object::DEBUG = true
     allow(PP).to receive(:pp).and_return(task.inspect)
     expect(task.show).to eq(task.inspect)
-    Object.send(:remove_const, :DEBUG)
   end
 end
