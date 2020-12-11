@@ -6,15 +6,13 @@ describe Parser::Runner do
 
   let(:thread) do
     Class.new do
-      def join
-      end
+      def join; end
     end.new
   end
 
   let(:task) do
     Class.new do
-      def execute
-      end
+      def execute; end
     end.new
   end
 
@@ -60,7 +58,7 @@ describe Parser::Runner do
 
   context 'Parsers::Runner#empty_pool?' do
     it 'should return true if no exist available threads' do
-      expect(runner.send(:empty_queue?)).to be true
+      expect(runner.send(:empty_queue?)).to eq(true)
     end
   end
 end

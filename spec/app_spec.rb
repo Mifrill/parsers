@@ -8,8 +8,7 @@ describe Parser do
     Class.new do
       prepend Parser
 
-      def initialize
-      end
+      def initialize; end
     end.new
   end
 

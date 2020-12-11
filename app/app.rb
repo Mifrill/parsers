@@ -28,7 +28,7 @@ module Parser
     private
 
     def parse_name(text)
-      text.to_s.split(/(?=[A-Z])\b/).join('_').downcase + '_parser'
+      "#{text.to_s.split(/(?=[A-Z])\b/).join('_').downcase}_parser"
     end
 
     def parse_class(text)
