@@ -46,6 +46,6 @@ if ENV['ENV'] == 'test'
   end
 end
 
-require_relative '../app/app'
+require_relative '../app/parser'
 
 Parser::Settings.new

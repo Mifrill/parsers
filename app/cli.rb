@@ -1,4 +1,4 @@
-require_relative '../app/app'
+require_relative '../app/parser'
 
 require 'thor'
 
