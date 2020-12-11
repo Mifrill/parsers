@@ -1,6 +1,8 @@
 require 'byebug'
 
 class TestParser
+  DEBUG = true
+
   def initialize
     task(method: :first, data: 123)
   end

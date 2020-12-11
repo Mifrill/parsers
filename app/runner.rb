@@ -1,8 +1,9 @@
 module Parser
   class Runner
-    attr_reader :queue, :threads
+    attr_reader :queue, :threads, :debug
 
-    def initialize
+    def initialize(debug: false)
+      @debug = debug
       @queue = Queue.new
       @threads = []
     end
@@ -10,7 +11,7 @@ module Parser
     def add_task(task)
       threads << Thread.new do
         queue << task
-        puts "produced: #{task}"
+        puts "produced: #{task}" if debug
       end
     end
 
@@ -28,11 +29,11 @@ module Parser
     end
 
     def add_task_execute
-      return PP.pp('No existed tasks') if empty_queue?
+      return PP.pp('No existed tasks') if empty_queue? && debug
 
       threads << Thread.new do
         task = queue.pop
-        puts "consumed: #{task}"
+        puts "consumed: #{task}" if debug
         task.execute
       end
     end

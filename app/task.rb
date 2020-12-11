@@ -2,7 +2,7 @@ require_relative 'session'
 
 module Parser
   class Task
-    attr_reader :parser, :driver, :method, :url, :data
+    attr_reader :parser, :driver, :method, :url, :data, :debug
 
     def initialize(parser:, driver:, method:, url:, data:)
       @parser = parser
@@ -10,8 +10,9 @@ module Parser
       @method = method
       @url = url
       @data = data
+      @debug = parser.class::DEBUG
 
-      show
+      show if debug
     end
 
     def show
@@ -35,7 +36,7 @@ module Parser
         if url
           session = Parser::Session.new(driver)
           session.visit(url)
-          PP.pp "#{self.class}. Current driver - #{driver}"
+          PP.pp "#{self.class}. Current driver - #{driver}" if debug
           session
         end
     end

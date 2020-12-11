@@ -11,6 +11,7 @@ require 'pp'
 module Parser
   extend Forwardable
 
+  DEBUG = false
   DRIVER = :cuprite
 
   delegate %i[xpath at_xpath] => :html
@@ -36,7 +37,7 @@ module Parser
   end
 
   def initialize
-    @runner = Parser::Runner.new
+    @runner = Parser::Runner.new(debug: DEBUG)
     super
     @runner.start
   end
