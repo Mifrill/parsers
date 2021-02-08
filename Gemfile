@@ -12,7 +12,6 @@ gem 'chromedriver-helper'
 gem 'cuprite'
 gem 'mechanize'
 gem 'selenium-webdriver'
-gem 'thor'
 
 group :dev, :test do
   gem 'byebug'
